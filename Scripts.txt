@@ -1,0 +1,18 @@
+# Create migration
+EntityFrameworkCore\Add-Migration Init -Context EU_DbContext -OutputDir Migrations/EU_Write
+EntityFrameworkCore\Add-Migration Init -Context EU_ReadOnlyDbContext -OutputDir Migrations/EU_Read
+EntityFrameworkCore\Add-Migration Init -Context US_DbContext -OutputDir Migrations/US_Write
+EntityFrameworkCore\Add-Migration Init -Context US_ReadOnlyDbContext -OutputDir Migrations/US_Read
+EntityFrameworkCore\Add-Migration Init -Context AS_DbContext -OutputDir Migrations/AS_Write
+EntityFrameworkCore\Add-Migration Init -Context AS_ReadOnlyDbContext -OutputDir Migrations/AS_Read
+
+# Update database
+EntityFrameworkCore\Update-Database -Context EU_DbContext
+EntityFrameworkCore\Update-Database -Context EU_ReadOnlyDbContext
+EntityFrameworkCore\Update-Database -Context US_DbContext
+EntityFrameworkCore\Update-Database -Context US_ReadOnlyDbContext
+EntityFrameworkCore\Update-Database -Context AS_DbContext
+EntityFrameworkCore\Update-Database -Context AS_ReadOnlyDbContext
+
+# Create subscription on slave
+CREATE SUBSCRIPTION logicalsub1 connection 'dbname=RSBD_DB_M host=eu-db-write user=AdamDev port=5432 password=AdamDev' publication logicalpub;
