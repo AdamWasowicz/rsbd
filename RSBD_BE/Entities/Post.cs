@@ -8,8 +8,12 @@ namespace RSBD_BE.Entities
     {
         public int Id { get; set; }
 
-        public string Email { get; set; }
+        public string? Location { get; set; }
 
-        public string TextContent { get; set; }
+        public string? Email { get; set; }
+
+        public string? TextContent { get; set; }
+
+        public DateTime CreationDate { get; set; }
     }
 }

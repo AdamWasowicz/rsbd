@@ -69,6 +69,8 @@ namespace RSBD_BE
             );
         }
 
+
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -84,7 +86,11 @@ namespace RSBD_BE
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IEU_Service, EU_Service>();
+            builder.Services.AddScoped<IEU_PostService, EU_Service>();
+            builder.Services.AddScoped<IUS_PostService, US_Service>();
+            builder.Services.AddScoped<IAS_PostService, AS_Service>();
+            builder.Services.AddScoped<IRegionProvider, RegionProvider>();
+            builder.Services.AddScoped<IPostService, PostService>();
 
             var app = builder.Build();
 
