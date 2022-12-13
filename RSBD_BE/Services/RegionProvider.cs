@@ -44,13 +44,13 @@ namespace RSBD_BE.Services
 
         public int getRegionId(string regionName)
         {
-            switch (regionName)
+            switch (0)
             {
-                case "eu":
+                case int n when regionName == "eu" || regionName == "EU":
                     return (int)Regions.EU;
-                case "us":
+                case int n when regionName == "us" || regionName == "US":
                     return (int)Regions.US;
-                case "as":
+                case int n when regionName == "as" || regionName == "AS":
                     return (int)Regions.AS;
                 default:
                     throw new InvalidRegionIdException();

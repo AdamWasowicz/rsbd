@@ -8,13 +8,13 @@ using RSBD_BE.Models;
 
 namespace RSBD_BE.Services
 {
-    public class Db_Service : IBase_PostService
+    public class Base_PostService : IBase_PostService
     {
         private readonly BaseDbContext _writeContext;
         private readonly ReadOnlyBaseDbContext _readContext;
         private readonly string _regionId = "DEFAULT";
 
-        public Db_Service(BaseDbContext writeContext, ReadOnlyBaseDbContext readContext, string regionId)
+        public Base_PostService(BaseDbContext writeContext, ReadOnlyBaseDbContext readContext, string regionId)
         {
             _writeContext = writeContext;
             _readContext = readContext;
@@ -27,7 +27,7 @@ namespace RSBD_BE.Services
             Post newPost = new Post()
             {
                 Email = dto.Email,
-                Location = _regionId,
+                RegionId = _regionId,
                 TextContent = dto.TextContent,
                 CreationDate = DateTime.Now,
             };
@@ -84,7 +84,7 @@ namespace RSBD_BE.Services
                     .FirstOrDefault();
 
             if (post == null)
-                throw new NoDataException();
+                throw new NoDataInTableException();
 
             return post;
         }

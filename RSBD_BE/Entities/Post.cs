@@ -8,7 +8,7 @@ namespace RSBD_BE.Entities
     {
         public int Id { get; set; }
 
-        public string? Location { get; set; }
+        public string? RegionId { get; set; }
 
         public string? Email { get; set; }
 

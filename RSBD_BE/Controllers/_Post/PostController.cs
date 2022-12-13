@@ -19,18 +19,18 @@ namespace RSBD_BE.Controllers
             _region = region;
         }
 
-        [HttpPost("{regionName}")]
-        public ActionResult InsertData([FromBody] CreatePostDTO dto, [FromRoute] string regionName)
+        [HttpPost]
+        public ActionResult InsertData([FromBody] CreatePostDTO dto)
         {
-            int id = _service.InsertData(dto, _region.getRegionId(regionName));
+            int id = _service.InsertData(dto);
 
             return Created(id.ToString(), null);
         }
 
-        [HttpPatch("{regionName}")]
-        public ActionResult UpdateData([FromBody] UpdatePostDTO dto, [FromRoute] string regionName)
+        [HttpPatch]
+        public ActionResult UpdateData([FromBody] UpdatePostDTO dto)
         {
-            bool result = _service.UpdateData(dto, _region.getRegionId(regionName));
+            bool result = _service.UpdateData(dto);
 
             if (result == false)
                 return NotFound();
@@ -38,10 +38,10 @@ namespace RSBD_BE.Controllers
             return Ok();
         }
 
-        [HttpDelete("{regionName}")]
-        public ActionResult DeleteData([FromBody] DeletePostDTO dto, [FromRoute] string regionName)
+        [HttpDelete]
+        public ActionResult DeleteData([FromBody] DeletePostDTO dto)
         {
-            bool result = _service.DeleteData(dto, _region.getRegionId(regionName));
+            bool result = _service.DeleteData(dto);
 
             if (result == false)
                 return NotFound();
@@ -50,7 +50,7 @@ namespace RSBD_BE.Controllers
         }
 
         [HttpGet("{regionName}")]
-        public ActionResult<List<Post>> GetAllRegionData([FromRoute] string regionName)
+        public ActionResult<List<Post>> GetRegionAllData([FromRoute] string regionName)
         {
             var data = _service.GetAllData(_region.getRegionId(regionName));
 

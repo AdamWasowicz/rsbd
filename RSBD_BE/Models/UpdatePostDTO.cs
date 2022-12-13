@@ -4,7 +4,9 @@
     {
         public int Id { get; set; }
 
+        public string? RegionId { get; set; }
+
         //Updated content
-        public string TextContent { get; set; }
+        public string? TextContent { get; set; }
     }
 }

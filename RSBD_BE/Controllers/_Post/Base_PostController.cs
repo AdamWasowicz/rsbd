@@ -8,6 +8,7 @@ using RSBD_BE.Models;
 namespace RSBD_BE.Controllers
 {
     [Authorize]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class Base_PostController : Controller
     {
         private readonly IBase_PostService _service;

@@ -3,6 +3,7 @@ using RSBD_BE.Entities.DbContexts.AS;
 using RSBD_BE.Entities.DbContexts.EU;
 using RSBD_BE.Entities.DbContexts.US;
 using RSBD_BE.Interfaces;
+using RSBD_BE.Middleware;
 using RSBD_BE.Services;
 
 namespace RSBD_BE
@@ -73,25 +74,28 @@ namespace RSBD_BE
 
         public static void Main(string[] args)
         {
+            // BUILDER
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             // Database contexts
             AddEuDbContexts(builder);
             AddUsDbContexts(builder);
             AddAsDbContexts(builder);
 
             builder.Services.AddControllers();
-            
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IEU_PostService, EU_Service>();
-            builder.Services.AddScoped<IUS_PostService, US_Service>();
-            builder.Services.AddScoped<IAS_PostService, AS_Service>();
+            builder.Services.AddScoped<IEU_PostService, EU_PostService>();
+            builder.Services.AddScoped<IUS_PostService, US_PostService>();
+            builder.Services.AddScoped<IAS_PostService, AS_PostService>();
             builder.Services.AddScoped<IRegionProvider, RegionProvider>();
             builder.Services.AddScoped<IPostService, PostService>();
 
+            // Middleware
+            builder.Services.AddScoped<ErrorHandlingMiddleware>();
+
+
+            // APP
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -101,10 +105,12 @@ namespace RSBD_BE
                 app.UseSwaggerUI();
             }
 
+            //Middleware
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

@@ -2,7 +2,7 @@
 
 namespace RSBD_BE.Models
 {
-    public class AllDataDTO
+    public class AllDataDividedByLocationDTO
     {
         public List<Post> EU_Write { get; set; }
         public List<Post> EU_Read { get; set; }

@@ -13,19 +13,37 @@ namespace RSBD_BE.Services
             _region = regionProvider;
         }
 
-        public int InsertData(CreatePostDTO dto, int regionId)
+        public int InsertData(CreatePostDTO dto)
         {
-            return _region.provide(regionId).InsertData(dto);
+            if (dto != null && dto.RegionId != null)
+            {
+                int regionId = _region.getRegionId(dto.RegionId);
+                return _region.provide(regionId).InsertData(dto);
+            }
+            
+            throw new ArgumentNullException(nameof(dto));
         }
 
-        public bool UpdateData(UpdatePostDTO dto, int regionId)
+        public bool UpdateData(UpdatePostDTO dto)
         {
-            return _region.provide(regionId).UpdateData(dto);
+            if (dto != null && dto.RegionId != null)
+            {
+                int regionId = _region.getRegionId(dto.RegionId);
+                return _region.provide(regionId).UpdateData(dto);
+            }
+
+            throw new ArgumentNullException(nameof(dto));
         }
 
-        public bool DeleteData(DeletePostDTO dto, int regionId)
+        public bool DeleteData(DeletePostDTO dto)
         {
-            return _region.provide(regionId).DeleteData(dto);
+            if (dto != null && dto.RegionId != null)
+            {
+                int regionId = _region.getRegionId(dto.RegionId);
+                return _region.provide(regionId).DeleteData(dto);
+            }
+
+            throw new ArgumentNullException(nameof(dto));
         }
 
         public List<Post> GetAllData(int regionId)
