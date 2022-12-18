@@ -13,14 +13,15 @@ services:
     environment:
       # Databases
       # EU
-      DB_EU_WRITE_CS: "Host=eu-db-write;Port=${DB_PORT_INSIDE};Database=${DB_NAME_MASTER};Username=${DB_USER};Password=${DB_PASSWORD}"
-      DB_EU_READ_CS: "Host=eu-db-read;Port=${DB_PORT_INSIDE};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
+      DB_EU_WRITE_CS: "${DB_EU_WRITE_CS}"
+      DB_EU_READ_CS: "${DB_EU_READ_CS}"
       # US
-      DB_US_WRITE_CS: "Host=us-db-write;Port=${DB_PORT_INSIDE};Database=${DB_NAME_MASTER};Username=${DB_USER};Password=${DB_PASSWORD}"
-      DB_US_READ_CS: "Host=us-db-read;Port=${DB_PORT_INSIDE};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
+      DB_US_WRITE_CS: "${DB_US_WRITE_CS}"
+      DB_US_READ_CS:  "${DB_US_READ_CS}"
       # AS
-      DB_AS_WRITE_CS: "Host=as-db-write;Port=${DB_PORT_INSIDE};Database=${DB_NAME_MASTER};Username=${DB_USER};Password=${DB_PASSWORD}"
-      DB_AS_READ_CS: "Host=as-db-read;Port=${DB_PORT_INSIDE};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
+      DB_AS_WRITE_CS: "${DB_AS_WRITE_CS}"
+      DB_AS_READ_CS:  "${DB_AS_READ_CS}"
+
       # Other
       ASPNETCORE_URLS: http://+:${API_PORT_INSIDE}
       MODE: Development
@@ -37,9 +38,6 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME_MASTER}
-      - PG_REP_USER=${DB_USER}
-      - PG_REP_PASSWORD=${DB_PASSWORD}
-      - PG_REP_SLAVE=eu-db-read
     ports:
         - "${DB_EU_WRITE_PORT_OUTSIDE}:${DB_PORT_INSIDE}"
     networks:
@@ -56,10 +54,6 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
-      - PG_REP_USER=${DB_USER}
-      - PG_REP_PASSWORD=${DB_PASSWORD}
-      - PG_REP_DB_NAME=${DB_NAME_MASTER}
-      - PG_REP_MASTER=eu-db-write
     ports:
         - "${DB_EU_READ_PORT_OUTSIDE}:${DB_PORT_INSIDE}"
     networks:
@@ -77,9 +71,6 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME_MASTER}
-      - PG_REP_USER=${DB_USER}
-      - PG_REP_PASSWORD=${DB_PASSWORD}
-      - PG_REP_SLAVE=us-db-read
     ports:
         - "${DB_US_WRITE_PORT_OUTSIDE}:${DB_PORT_INSIDE}"
     networks:
@@ -96,10 +87,6 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
-      - PG_REP_USER=${DB_USER}
-      - PG_REP_PASSWORD=${DB_PASSWORD}
-      - PG_REP_DB_NAME=${DB_NAME_MASTER}
-      - PG_REP_MASTER=us-db-write
     ports:
         - "${DB_US_READ_PORT_OUTSIDE}:${DB_PORT_INSIDE}"
     networks:
@@ -117,9 +104,6 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME_MASTER}
-      - PG_REP_USER=${DB_USER}
-      - PG_REP_PASSWORD=${DB_PASSWORD}
-      - PG_REP_SLAVE=as-db-read
     ports:
         - "${DB_AS_WRITE_PORT_OUTSIDE}:${DB_PORT_INSIDE}"
     networks:
@@ -136,10 +120,6 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
-      - PG_REP_USER=${DB_USER}
-      - PG_REP_PASSWORD=${DB_PASSWORD}
-      - PG_REP_DB_NAME=${DB_NAME_MASTER}
-      - PG_REP_MASTER=as-db-write
     ports:
         - "${DB_AS_READ_PORT_OUTSIDE}:${DB_PORT_INSIDE}"
     networks:

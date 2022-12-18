@@ -36,6 +36,21 @@ namespace RSBD_BE.Services
             return newPost.Id;
         }
 
+        public int InsertExampleData()
+        {
+            Post newPost = new Post()
+            {
+                Email = "test@test.pl",
+                RegionId = _regionId,
+                TextContent = DateTime.Now.ToString(),
+                CreationDate = DateTime.Now,
+            };
+
+            _writeContext.Add(newPost);
+            _writeContext.SaveChanges();
+            return newPost.Id;
+        }
+
         public bool UpdateData(UpdatePostDTO dto)
         {
             var post = _readContext.Posts
@@ -56,7 +71,7 @@ namespace RSBD_BE.Services
 
         public bool DeleteData(DeletePostDTO dto)
         {
-            var post = _readContext.Posts
+            var post = _writeContext.Posts
                 .Where(p => p.Id == dto.Id)
                     .FirstOrDefault();
 
@@ -77,6 +92,14 @@ namespace RSBD_BE.Services
             return posts;
         }
 
+        public Tuple<List<Post>, List<Post>> GetDataFromBothServers()
+        {
+            List<Post> primary = _writeContext.Posts.ToList();
+            List<Post> secondary = _readContext.Posts.ToList();
+
+            return new Tuple<List<Post>, List<Post>>(primary, secondary);
+        }
+
         public Post GetDataById(int id)
         {
             var post = _readContext.Posts
@@ -91,12 +114,28 @@ namespace RSBD_BE.Services
 
         public bool IsServerPrimaryUp()
         {
-            return _writeContext.Database.CanConnect();
+            try
+            {
+                _writeContext.Posts.ToList();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool IsServerSecondaryUp()
         {
-            return _writeContext.Database.CanConnect();
+            try
+            {
+                _readContext.Posts.ToList();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

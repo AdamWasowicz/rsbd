@@ -27,6 +27,13 @@ namespace RSBD_BE.Controllers
             return Created(id.ToString(), null);
         }
 
+        [HttpPost("example/{regionId}")]
+        public ActionResult InsertExampleData([FromRoute] string regionId)
+        {
+            int id = _service.InsertExampleData(regionId);
+            return Created(id.ToString(), null);
+        }
+
         [HttpPatch]
         public ActionResult UpdateData([FromBody] UpdatePostDTO dto)
         {
@@ -52,7 +59,15 @@ namespace RSBD_BE.Controllers
         [HttpGet("{regionName}")]
         public ActionResult<List<Post>> GetRegionAllData([FromRoute] string regionName)
         {
-            var data = _service.GetAllData(_region.getRegionId(regionName));
+            var data = _service.GetRegionAllData(_region.getRegionId(regionName));
+
+            return data;
+        }
+
+        [HttpGet]
+        public ActionResult<AllDataDividedByLocationDTO> GetAllRegionBothServersAllData()
+        {
+            var data = _service.GetAllRegionsBothServersAllData();
 
             return data;
         }

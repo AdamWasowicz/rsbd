@@ -51,7 +51,7 @@ namespace RSBD_BE.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Post>> GetAllRegionData()
+        public ActionResult<List<Post>> GetRegionAllData()
         {
             var data = _service.GetAllData();
 
