@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+  frontend:
+    container_name: RSBD_FE
+    build:
+      context: './RSBD_FE'
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: "http://localhost:${API_PORT_OUTSIDE}"
+    ports:
+      - "3000:80"
+    volumes:
+      - 'fe-v:/app'
+      - '/app/RSBD_FE/node_modules'
+    networks:
+      - frontendNetwork
+
   api:
     container_name: RSBD_BE
     build: 
@@ -135,6 +150,8 @@ volumes:
   us-db-read-v:
   as-db-write-v:
   as-db-read-v:
+  fe-v:
 
 networks:
     backendNetwork:
+    frontendNetwork:
