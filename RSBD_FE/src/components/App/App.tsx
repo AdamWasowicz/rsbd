@@ -1,18 +1,33 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-//Style
+import { routes, IRoute }  from '../../router';
 import './style.scss';
-//Interfaces
-import { IRoute } from '../../router/IRoute';
-//Other
-import { routes } from '../../router/routes';
-
+import Navigation from '../Navigation';
+import { NavigationRoute } from '../Navigation/types';
 
 const App: React.FunctionComponent = () => {
+    const navigationProps: NavigationRoute[] = [
+        {
+            caption: 'Posts',
+            route: '/'
+        },
+
+        {
+            caption: 'Create',
+            route: '/create'
+        },
+
+        {
+            caption: 'Servers',
+            route : '/servers'
+        }
+    ]
+
+
     return (
         <div className='App'>
             <Router>
+                <Navigation routes={navigationProps}/>
                 <Routes>
                     {
                         routes.map((route: IRoute, i: number) => (

@@ -13,7 +13,7 @@ namespace RSBD_BE.Services
             _region = regionProvider;
         }
 
-        public int InsertData(CreatePostDTO dto)
+        public Post InsertData(CreatePostDTO dto)
         {
             if (dto != null && dto.RegionId != null)
             {
@@ -24,13 +24,13 @@ namespace RSBD_BE.Services
             throw new ArgumentNullException(nameof(dto));
         }
 
-        public int InsertExampleData(string regionId)
+        public Post InsertExampleData(string regionId)
         {
             int myRegionId = _region.getRegionId(regionId);
             return _region.provide(myRegionId).InsertExampleData();
         }
 
-        public bool UpdateData(UpdatePostDTO dto)
+        public Post UpdateData(UpdatePostDTO dto)
         {
             if (dto != null && dto.RegionId != null)
             {
@@ -62,6 +62,21 @@ namespace RSBD_BE.Services
             return _region.provide(regionId).GetDataById(id);
         }
 
+        public List<Post> GetAllData()
+        {
+            var euData = _region.provide(_region.getRegionId("eu")).GetAllData();
+            var usData = _region.provide(_region.getRegionId("us")).GetAllData();
+            var asData = _region.provide(_region.getRegionId("as")).GetAllData();
+
+            List<Post> posts = new List<Post>(euData.Count + usData.Count + asData.Count);
+
+            posts.AddRange(euData);
+            posts.AddRange(usData);
+            posts.AddRange(asData);
+
+            return posts;
+        }
+
         public bool IsServerPrimaryUp(int regionId)
         {
             return _region.provide(regionId).IsServerPrimaryUp();
@@ -79,14 +94,14 @@ namespace RSBD_BE.Services
 
             AllDataDividedByLocationDTO data = new AllDataDividedByLocationDTO()
             {
-                EU_Write = eu.Item1,
-                EU_Read = eu.Item2,
+                eu_Write = eu.Item1,
+                eu_Read = eu.Item2,
 
-                US_Write = us.Item1,
-                US_Read = us.Item2,
+                us_Write = us.Item1,
+                us_Read = us.Item2,
 
-                AS_Write = asServer.Item1,
-                AS_Read = asServer.Item2,
+                as_Write = asServer.Item1,
+                as_Read = asServer.Item2,
             };
 
             return data;

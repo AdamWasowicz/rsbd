@@ -22,7 +22,7 @@ namespace RSBD_BE.Services
         }
         
         
-        public int InsertData(CreatePostDTO dto)
+        public Post InsertData(CreatePostDTO dto)
         {
             Post newPost = new Post()
             {
@@ -33,10 +33,11 @@ namespace RSBD_BE.Services
             };
 
             _writeContext.Add(newPost);
-            return newPost.Id;
+
+            return newPost;
         }
 
-        public int InsertExampleData()
+        public Post InsertExampleData()
         {
             Post newPost = new Post()
             {
@@ -48,17 +49,18 @@ namespace RSBD_BE.Services
 
             _writeContext.Add(newPost);
             _writeContext.SaveChanges();
-            return newPost.Id;
+
+            return newPost;
         }
 
-        public bool UpdateData(UpdatePostDTO dto)
+        public Post UpdateData(UpdatePostDTO dto)
         {
             var post = _readContext.Posts
                 .Where(p => p.Id == dto.Id)
                     .FirstOrDefault();
 
             if (post == null)
-                return false;
+                throw new ResourceNotFoundException();
 
             // Update
             post.TextContent = dto.TextContent;
@@ -66,7 +68,7 @@ namespace RSBD_BE.Services
             _writeContext.Update(post);
             _writeContext.SaveChanges();
 
-            return true;
+            return post;
         }
 
         public bool DeleteData(DeletePostDTO dto)
@@ -76,7 +78,7 @@ namespace RSBD_BE.Services
                     .FirstOrDefault();
 
             if (post == null)
-                return false;
+                throw new ResourceNotFoundException();
 
             _writeContext.Remove(post);
             _writeContext.SaveChanges();
@@ -107,7 +109,7 @@ namespace RSBD_BE.Services
                     .FirstOrDefault();
 
             if (post == null)
-                throw new NoDataInTableException();
+                throw new ResourceNotFoundException();
 
             return post;
         }

@@ -3,6 +3,7 @@ import { enableMapSet } from 'immer';
 
 //Reducers
 import appReducer from './features/app-slice';
+import postReducer from './features/post-slice';
 
 enableMapSet();
 
@@ -10,6 +11,7 @@ enableMapSet();
 export const store = configureStore({
     reducer: {
         app: appReducer,
+        post: postReducer,
     }
 })
 

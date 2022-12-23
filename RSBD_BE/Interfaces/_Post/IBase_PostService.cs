@@ -6,9 +6,9 @@ namespace RSBD_BE.Interfaces
 {
     public interface IBase_PostService
     {
-        int InsertData(CreatePostDTO dto);
-        int InsertExampleData();
-        bool UpdateData(UpdatePostDTO dto);
+        Post InsertData(CreatePostDTO dto);
+        Post InsertExampleData();
+        Post UpdateData(UpdatePostDTO dto);
         bool DeleteData(DeletePostDTO dto);
 
         List<Post> GetAllData();

@@ -70,6 +70,16 @@ namespace RSBD_BE
             );
         }
 
+        public static void AddCORS(WebApplicationBuilder builder)
+        {
+            builder.Services.AddCors(o => o.AddPolicy("Dev", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+        }
+
 
 
         public static void Main(string[] args)
@@ -81,6 +91,7 @@ namespace RSBD_BE
             AddEuDbContexts(builder);
             AddUsDbContexts(builder);
             AddAsDbContexts(builder);
+            AddCORS(builder);
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -98,6 +109,9 @@ namespace RSBD_BE
             // APP
             var app = builder.Build();
 
+            // CORS
+            app.UseCors("Dev");
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -105,7 +119,7 @@ namespace RSBD_BE
                 app.UseSwaggerUI();
             }
 
-            //Middleware
+            // Middleware
             app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseHttpsRedirection();

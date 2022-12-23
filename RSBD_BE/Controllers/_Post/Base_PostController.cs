@@ -21,22 +21,17 @@ namespace RSBD_BE.Controllers
 
 
         [HttpPost]
-        public ActionResult InsertData([FromBody] CreatePostDTO dto)
+        public ActionResult<Post> InsertData([FromBody] CreatePostDTO dto)
         {
-            int id = _service.InsertData(dto);
-
-            return Created(id.ToString(), null);
+            var data = _service.InsertData(dto);
+            return Created(data.Id.ToString(), data);
         }
 
         [HttpPatch]
-        public ActionResult UpdateData([FromBody] UpdatePostDTO dto)
+        public ActionResult<Post> UpdateData([FromBody] UpdatePostDTO dto)
         {
-            bool result = _service.UpdateData(dto);
-
-            if (result == false)
-                return NotFound();
-
-            return Ok();
+            var data = _service.UpdateData(dto);
+            return data;
         }
 
         [HttpDelete]

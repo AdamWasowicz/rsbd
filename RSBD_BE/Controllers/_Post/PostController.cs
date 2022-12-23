@@ -20,39 +20,30 @@ namespace RSBD_BE.Controllers
         }
 
         [HttpPost]
-        public ActionResult InsertData([FromBody] CreatePostDTO dto)
+        public ActionResult<Post> InsertData([FromBody] CreatePostDTO dto)
         {
-            int id = _service.InsertData(dto);
-
-            return Created(id.ToString(), null);
+            var data = _service.InsertData(dto);
+            return Created(data.Id.ToString(), data);
         }
 
         [HttpPost("example/{regionId}")]
-        public ActionResult InsertExampleData([FromRoute] string regionId)
+        public ActionResult<Post> InsertExampleData([FromRoute] string regionId)
         {
-            int id = _service.InsertExampleData(regionId);
-            return Created(id.ToString(), null);
+            var data = _service.InsertExampleData(regionId);
+            return Created(data.Id.ToString(), data);
         }
 
         [HttpPatch]
-        public ActionResult UpdateData([FromBody] UpdatePostDTO dto)
+        public ActionResult<Post> UpdateData([FromBody] UpdatePostDTO dto)
         {
-            bool result = _service.UpdateData(dto);
-
-            if (result == false)
-                return NotFound();
-
-            return Ok();
+            var data = _service.UpdateData(dto);
+            return data;
         }
 
         [HttpDelete]
         public ActionResult DeleteData([FromBody] DeletePostDTO dto)
         {
-            bool result = _service.DeleteData(dto);
-
-            if (result == false)
-                return NotFound();
-
+            var result = _service.DeleteData(dto);
             return Ok();
         }
 
@@ -60,7 +51,6 @@ namespace RSBD_BE.Controllers
         public ActionResult<List<Post>> GetRegionAllData([FromRoute] string regionName)
         {
             var data = _service.GetRegionAllData(_region.getRegionId(regionName));
-
             return data;
         }
 
@@ -68,7 +58,6 @@ namespace RSBD_BE.Controllers
         public ActionResult<AllDataDividedByLocationDTO> GetAllRegionBothServersAllData()
         {
             var data = _service.GetAllRegionsBothServersAllData();
-
             return data;
         }
 

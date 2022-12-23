@@ -1,46 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
 
-//Colors
-//Dark primary
-$dark-primary-70: #96bfcf;
-$dark-primary-60: #73a9bf;
-$dark-primary-50: #5094af;
-$dark-primary-40: #40768c;
-$dark-primary-30: #305969;
-$dark-primary-20: #203b46;
 
-//Light primary
-$light-primary-70: #86dfd5;
-$light-primary-60: #5ed4c6;
-$light-primary-50: #36c9b8;
-$light-primary-40: #2ba193;
-$light-primary-30: #20796f;
-$light-primary-20: #15514a;
+// Colors
+$lightBlue: #8ECAE6;
+$lightBlueText: black;
 
-//Yellow
-$yellow-70: #ebcb7a;
-$yellow-60: #e4ba4e;
-$yellow-50: #dea821;
-$yellow-40: #b1871b;
-$yellow-30: #856514;
-$yellow-20: #59430d;
+$standardBlue: #219EBC;
+$standardBlueHover: #2c8298;
+$standardBlueText: white;
 
-//Orange
-$orange-70: #f5ac70;
-$orange-60: #f29040;
-$orange-50: #ee7411;
-$orange-40:  #bf5d0d;
-$orange-30: #8f460a;
-$orange-20: #5f2f07;
+$darkBlue: #023047;
+$darkBlueText: white;
 
-//Compated
-$primary-light: #5ed4c6;
-$primary-dark: #305969;
-$accent-light: #dea821;
-$accent-dark: #5f2f07;
-$background-color: #e7e7e7;
+$standardYellow: #FFB703;
+$standardYellowText: black;
 
-//Font
+$standardOrange: #FB8500;
+$standardOrangeText: white;
+
+$eu: purple;
+$us: red;
+$as: gold;
+
+
+// Fonts
 $font-header: 'Roboto', sans-serif;
 $font-normal: 'Noto Sans', sans-serif;
+
+// Other
+$transitionTime: 0.2s;

@@ -2,22 +2,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
 export interface AppState {
+    isLoading: boolean;
 }
 
 const initialState: AppState = {
+    isLoading: false,
 }
 
-const expertSlice = createSlice({
+const AppSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        
+        setIsLoading(state: AppState, action: PayloadAction<boolean>) {
+            state.isLoading = action.payload;
+        },
     }
 })
 
 export const {
-    
-} = expertSlice.actions;
+    setIsLoading,
+} = AppSlice.actions;
 
 
-export default expertSlice.reducer;
+export default AppSlice.reducer;

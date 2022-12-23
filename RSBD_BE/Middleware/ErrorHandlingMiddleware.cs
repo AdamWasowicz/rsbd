@@ -15,10 +15,15 @@ namespace RSBD_BE.Middleware
                 context.Response.StatusCode = 400;
                 context.Response.WriteAsync(exception.Message);
             }
-            catch (NoDataInTableException exception)
+            catch (ResourceNotFoundException exception)
             {
                 context.Response.StatusCode = 400;
                 context.Response.WriteAsync(exception.Message);
+            }
+            catch (ArgumentNullException exception)
+            {
+                context.Response.StatusCode = 400;
+                context.Response.WriteAsync("Wrong data provided");
             }
             catch (Exception exception)
             {

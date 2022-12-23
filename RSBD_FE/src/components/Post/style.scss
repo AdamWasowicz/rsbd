@@ -1,0 +1,50 @@
+@import '../../assets/constants/styleConstants.scss';
+
+
+.Post {
+    // Flex
+    display: flex;
+    flex-direction: column;
+
+    // Background
+    background-color: $lightBlue;
+
+    // Object size
+    width: 400px;
+    height: 200px;
+    
+
+    > .Header {
+        // Content position
+        padding: 8px 16px;
+
+        // Text
+        text-align: center;
+        font-family: $font-header;
+        font-size: 32px;
+
+        &.EU {
+            background-color: $eu;
+            color: white;
+        }
+
+        &.US {
+            background-color: $us;
+            color: white;
+        }
+
+        &.AS {
+            background-color: $as;
+            color: black;
+        }
+    }
+
+    > .Data {
+        // Flex
+        display: flex;
+        flex-direction: column;
+        
+        // Content position
+        text-align: center;
+    }
+}

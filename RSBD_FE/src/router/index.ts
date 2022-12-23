@@ -1,0 +1,1 @@
+export { IRoute, routes } from './routes';

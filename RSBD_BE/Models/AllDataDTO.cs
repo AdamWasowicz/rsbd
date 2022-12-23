@@ -4,13 +4,13 @@ namespace RSBD_BE.Models
 {
     public class AllDataDividedByLocationDTO
     {
-        public List<Post> EU_Write { get; set; }
-        public List<Post> EU_Read { get; set; }
+        public List<Post> eu_Write { get; set; }
+        public List<Post> eu_Read { get; set; }
 
-        public List<Post> US_Write { get; set; }
-        public List<Post> US_Read { get; set; }
+        public List<Post> us_Write { get; set; }
+        public List<Post> us_Read { get; set; }
 
-        public List<Post> AS_Write { get; set; }
-        public List<Post> AS_Read { get; set; }
+        public List<Post> as_Write { get; set; }
+        public List<Post> as_Read { get; set; }
     }
 }

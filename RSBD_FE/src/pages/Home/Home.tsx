@@ -3,6 +3,7 @@ import { useHome } from './utils';
 
 //Style
 import './style.scss';
+import PostsContainer from '../../components/PostsContainer';
 
 
 const Home: React.FunctionComponent = () => {
@@ -13,7 +14,7 @@ const Home: React.FunctionComponent = () => {
 
     return (
         <div className='Home'>
-           <h1>RSBD_FE</h1>
+           <PostsContainer/>
         </div>
     );
 };

@@ -1,0 +1,48 @@
+@import '../../assets/constants/styleConstants.scss';
+
+
+.Navigation {
+    // Flex
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    // Object size
+    width: 100%;
+
+    // Content position
+    padding: 16px;
+
+    // Color
+    background-color: $standardBlue;
+
+    > .Element {
+        // Text
+        font-size: 64px;
+        color: $standardBlueText;
+        font-family: $font-header;
+
+        // Object position
+        margin: 0px 16px;
+
+        // Content position
+        padding: 8px 24px;
+
+        // Transition
+        transition: $transitionTime;
+
+        &:hover {
+            // Cursor
+            cursor: pointer;
+
+            // Text
+            color: $standardYellow;
+
+            // Background
+            background-color: $standardBlueHover;
+
+            // Transition
+            transition: $transitionTime;
+        }
+    }
+}
