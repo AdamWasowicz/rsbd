@@ -19,6 +19,14 @@ const postSlice = createSlice({
     initialState,
     reducers: {
         setPosts(state: PostState, action: PayloadAction<PostType[]>) {
+            action.payload.sort((a, b) => {
+                if (a.id > b.id)
+                    return 1;
+                else if (a.id < b.id)
+                    return -1;
+                
+                return 0;         
+            })
             state.posts = [...action.payload];
         },
 
@@ -33,12 +41,16 @@ const postSlice = createSlice({
         removePost(state: PostState, action: PayloadAction<PostType>) {
             // Find index of Post to be delted
             const index = state.posts.findIndex((element) => {
+                console.log(element);
                 if (element.id == action.payload.id && element.regionId == action.payload.regionId) {
                     return true;
                 }
                 else 
                     return false;
             });
+
+            console.log(index);
+            console.log(action.payload)
 
             // Filter Posts
             state.posts = state.posts.filter((_, indexOfElement) => {

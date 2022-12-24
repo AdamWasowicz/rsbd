@@ -1,0 +1,66 @@
+@mixin dynamicNavigation() {
+    $ratio: 0.015;
+    $ratioMargin: 0.005;
+    $ratioPadding: 1;
+
+    padding: 16px * $ratioPadding 8px * $ratioPadding;
+
+    @media (max-width: 900px ) and (orientation: portrait){
+        $multiplier: 0.8;
+
+        // Content position
+        padding: 
+            (16px * $ratioPadding * $multiplier)
+            (8px * $ratioPadding * $multiplier);
+
+        // Flex
+        justify-content: space-between;
+    }
+
+    @media (max-width: 900px ) and (orientation: landscape){
+        $multiplier: 0.5;
+
+        // Content position
+        padding: 
+            (16px * $ratioPadding * $multiplier)
+            (8px * $ratioPadding * $multiplier);
+    }
+}
+
+@mixin dynamicNavigation_Element() {
+    $ratio: 0.02;
+    $ratioMargin: 0.005;
+    $ratioPadding: 0.5;
+
+    // Text
+    font-size: 100vw * $ratio;
+
+    // Object position
+    margin: 0px 100vw * $ratioMargin;
+
+    // Content position
+    padding: 8px * $ratioPadding 24px * $ratioPadding;
+
+
+    // 1200px
+    @media (max-width: 1200px ) and (orientation: portrait){
+        $multiplier: 2;
+        font-size: 100vw * $ratio * $multiplier;
+    }
+
+    @media (max-width: 1200px ) and (orientation: landscape){
+        $multiplier: 2;
+        font-size: 100vw * $ratio * $multiplier;
+    }
+
+    // 900px
+    @media (max-width: 900px ) and (orientation: portrait){
+        $multiplier: 4;
+        font-size: 100vw * $ratio * $multiplier;
+    }
+
+    @media (max-width: 900px ) and (orientation: landscape){
+        $multiplier: 2;
+        font-size: 100vw * $ratio * $multiplier;
+    }
+}

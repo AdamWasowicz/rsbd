@@ -1,6 +1,6 @@
 {
   "name": "rsbd_fe",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "RSBD_FE",
   "main": "app.js",
   "scripts": {
@@ -49,5 +49,8 @@
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.8.1"
+  },
+  "dependencies": {
+    "react-loading": "^2.0.3"
   }
 }

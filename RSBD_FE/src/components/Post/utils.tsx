@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import PostType from '../../assets/types/PostType';
 import useAppAPI from '../../hooks/useAppAPI';
 import { useAppDispatch } from '../../redux/hooks';
-import { removePost } from '../../redux/features/post-slice';
+import { removePost, updatePost } from '../../redux/features/post-slice';
+import { patchPostDTO } from '../../hooks/useAppAPI/types';
 
 
 const usePost = (post: PostType) => {
@@ -11,14 +12,18 @@ const usePost = (post: PostType) => {
 
     const [isActionInProgress, setIsActionInProgress] = useState<boolean>(false);
     const [inEditMode, setInEditMode] = useState<boolean>(false);
+    const [e_textContent, setE_textContent] = useState<string>(post.textContent);
 
+    const handleE_textContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        setE_textContent(event.currentTarget.value);
+    }
 
     const handleSetIsActionInProgress = (value: boolean) => {
         setIsActionInProgress(value);
     }
 
-    const handleSetInEditMode = (value: boolean) => {
-        setInEditMode(value);
+    const switchEditMode = () => {
+        setInEditMode(!inEditMode);
     }
 
     const handlePostDeletion = () => {
@@ -34,7 +39,29 @@ const usePost = (post: PostType) => {
 
             })
             .finally(() => {
-                handleSetIsActionInProgress(true);
+                handleSetIsActionInProgress(false);
+            })
+    }
+
+    const handlePostPatching = () => {
+        handleSetIsActionInProgress(true);
+
+        const dto: patchPostDTO = {
+            id: post.id,
+            regionId: post.regionId,
+            textContent: e_textContent
+        }
+
+        apiClient.patchPost(dto)
+            .then((value) => {
+                dispatch(updatePost({old: post, new: value}))
+                switchEditMode();
+            })
+            .catch((error) => {
+
+            })
+            .then(() => {
+                handleSetIsActionInProgress(false);
             })
     }
 
@@ -53,7 +80,10 @@ const usePost = (post: PostType) => {
 
     return {
         getHeaderClass, getFormatedDate, 
-        handlePostDeletion
+        handlePostDeletion, handlePostPatching,
+        inEditMode, switchEditMode, 
+        e_textContent, handleE_textContentChange,
+        isActionInProgress
     }
 }
 

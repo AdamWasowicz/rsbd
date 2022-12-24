@@ -1,7 +1,10 @@
-@import '../../assets/constants/styleConstants.scss';
+@import '../../../assets/constants/styleConstants.scss';
+@import './mixins.scss';
 
 
 .Navigation {
+    @include dynamicNavigation();
+
     // Flex
     display: flex;
     flex-direction: row;
@@ -10,23 +13,15 @@
     // Object size
     width: 100%;
 
-    // Content position
-    padding: 16px;
-
     // Color
     background-color: $standardBlue;
 
     > .Element {
+        @include dynamicNavigation_Element();
+
         // Text
-        font-size: 64px;
         color: $standardBlueText;
         font-family: $font-header;
-
-        // Object position
-        margin: 0px 16px;
-
-        // Content position
-        padding: 8px 24px;
 
         // Transition
         transition: $transitionTime;

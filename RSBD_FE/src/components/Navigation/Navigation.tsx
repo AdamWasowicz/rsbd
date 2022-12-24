@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationRoute } from './types';
-import './style.scss';
+import './styles/style.scss';
 import useNavigation from './utils';
 
 interface NavigationProps {

@@ -15,10 +15,10 @@
     }
 }
 
-
 //Const
 $spiner-size: 520px;
 $spiner-thicknes: 64px;
+$color: $standardOrange;
 
 
 .Loading {
@@ -41,10 +41,10 @@ $spiner-thicknes: 64px;
         width: $spiner-size;
         height: $spiner-size;
         margin: $spiner-thicknes;
-        border: $spiner-thicknes solid $accent-light;
+        border: $spiner-thicknes solid $color;
         border-radius: 50%;
         animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        border-color: $accent-light transparent transparent transparent;
+        border-color: $color transparent transparent transparent;
     }
 
     .lds-ring div:nth-child(1) {

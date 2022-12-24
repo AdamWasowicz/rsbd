@@ -3,7 +3,13 @@ import PostType from '../../assets/types/PostType';
 import usePost from './utils';
 import './style.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare as editIcon, faTrash as deleteIcon } from '@fortawesome/free-solid-svg-icons'
+import { 
+    faPenToSquare as editIcon, 
+    faTrash as deleteIcon, 
+    faFloppyDisk as saveIcon
+ } from '@fortawesome/free-solid-svg-icons';
+ import ReactLoading from 'react-loading';
+
 
 
 interface PostProps {
@@ -13,24 +19,58 @@ interface PostProps {
 const Post: React.FC<PostProps> = (props) => {
     const {
         getHeaderClass, getFormatedDate,
-        handlePostDeletion
+        handlePostDeletion, handlePostPatching,
+        inEditMode, switchEditMode, 
+        e_textContent, handleE_textContentChange,
+        isActionInProgress
     } = usePost(props.data);
 
     return (
         <div className='Post'>
+            {
+                isActionInProgress &&
+                <div className='Overlay'>
+                     <div className='Cover'/>
+
+                     <ReactLoading 
+                            type={'bubbles'} 
+                            height={'50%'} 
+                            color={'#2592eb'}
+                            width={'50%'} 
+                            className='Loader'
+                            />
+                </div>
+            }
+
             <div className={getHeaderClass()}>
                 { props.data.regionId.toUpperCase() }
             </div>
 
             <div className='ControlsContainer'>
-                <div 
-                    className='Control Delete'
-                    onClick={handlePostDeletion}
+                {
+                    inEditMode == false &&
+                    <div 
+                        className='Control Delete'
+                        onClick={handlePostDeletion}
                     >
-                    <FontAwesomeIcon icon={deleteIcon}/>
-                </div>
+                        <FontAwesomeIcon icon={deleteIcon}/>
+                    </div>
+                }
+
+                {
+                    inEditMode == true &&
+                    <div 
+                        className='Control Save'
+                        onClick={handlePostPatching}
+                    >
+                        <FontAwesomeIcon icon={saveIcon}/>
+                    </div>
+                }
                 
-                <div className='Control Edit'>
+                <div 
+                    className='Control Edit'
+                    onClick={switchEditMode}
+                >
                     <FontAwesomeIcon icon={editIcon}/>
                 </div>
             </div>
@@ -44,9 +84,24 @@ const Post: React.FC<PostProps> = (props) => {
                     {props.data.email}      
                 </div>
 
-                <div className='Field'>
-                    {props.data.textContent}      
-                </div>
+                {
+                    inEditMode == false &&
+                    <div className='Field TextContent'>
+                        {props.data.textContent}      
+                    </div>
+                }
+
+                {
+                    inEditMode == true &&
+                    <div className='InputField'>
+                        <textarea
+                            value={e_textContent}
+                            onChange={handleE_textContentChange}
+                            placeholder="New Content"
+                            wrap="on"
+                        />
+                    </div>
+                }
             </div>
         </div>
     )
