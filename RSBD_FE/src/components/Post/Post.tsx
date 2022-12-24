@@ -2,6 +2,9 @@ import React from 'react';
 import PostType from '../../assets/types/PostType';
 import usePost from './utils';
 import './style.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare as editIcon, faTrash as deleteIcon } from '@fortawesome/free-solid-svg-icons'
+
 
 interface PostProps {
     data: PostType
@@ -9,7 +12,8 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = (props) => {
     const {
-        getHeaderClass, 
+        getHeaderClass, getFormatedDate,
+        handlePostDeletion
     } = usePost(props.data);
 
     return (
@@ -18,10 +22,31 @@ const Post: React.FC<PostProps> = (props) => {
                 { props.data.regionId.toUpperCase() }
             </div>
 
+            <div className='ControlsContainer'>
+                <div 
+                    className='Control Delete'
+                    onClick={handlePostDeletion}
+                    >
+                    <FontAwesomeIcon icon={deleteIcon}/>
+                </div>
+                
+                <div className='Control Edit'>
+                    <FontAwesomeIcon icon={editIcon}/>
+                </div>
+            </div>
+
             <div className='Data'>
-                <h3>{props.data.creationDate}</h3>
-                <h3>{props.data.email}</h3>
-                <h3>{props.data.textContent}</h3>
+                <div className='Field Date'>
+                    {getFormatedDate()}      
+                </div>
+
+                <div className='Field Email'>
+                    {props.data.email}      
+                </div>
+
+                <div className='Field'>
+                    {props.data.textContent}      
+                </div>
             </div>
         </div>
     )

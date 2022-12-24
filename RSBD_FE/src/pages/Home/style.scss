@@ -1,1 +1,28 @@
 @import '../../assets/constants/styleConstants.scss';
+
+
+.Home {
+    // Object size
+    min-height: 100vh;
+    width: 100%;
+
+    // Background
+    background-color: white;
+
+    // Content position
+    text-align: center;
+
+    > .Content {
+        // Object size
+        width: 100%;
+        //min-width: 800px;
+        max-width: 1600px;
+
+        // Content position
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 24px;
+
+        background-color: red;
+    }
+}

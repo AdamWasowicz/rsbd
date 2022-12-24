@@ -14,7 +14,9 @@ const Home: React.FunctionComponent = () => {
 
     return (
         <div className='Home'>
-           <PostsContainer/>
+            <div className='Content'>
+                <PostsContainer/>
+            </div>
         </div>
     );
 };

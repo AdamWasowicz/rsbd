@@ -35,14 +35,11 @@ namespace RSBD_BE.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeleteData([FromBody] DeletePostDTO dto)
+        public ActionResult<bool> DeleteData([FromBody] DeletePostDTO dto)
         {
             bool result = _service.DeleteData(dto);
 
-            if (result == false)
-                return NotFound();
-
-            return Ok();
+            return result;
         }
 
         [HttpGet]

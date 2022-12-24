@@ -11,7 +11,6 @@
 
     // Object size
     width: 400px;
-    height: 200px;
     
 
     > .Header {
@@ -22,6 +21,7 @@
         text-align: center;
         font-family: $font-header;
         font-size: 32px;
+        font-weight: bold;
 
         &.EU {
             background-color: $eu;
@@ -39,6 +39,64 @@
         }
     }
 
+    > .ControlsContainer {
+        // Flex
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        > .Control {
+            // Object size
+            width: 100%;
+
+            // Content position
+            padding: 8px 16px;
+
+            // Text
+            font-size: 48px;
+
+            &.Delete {
+                // Color
+                background-color: $delete;
+                color: black;
+
+                // Transition
+                transition: $transitionTime;
+
+                &:hover {
+                    // Cursor
+                    cursor: pointer;
+
+                    //Color
+                    background-color: $deleteHover;
+
+                    // Transition
+                    transition: $transitionTime;
+                }
+            }
+
+            &.Edit {
+                // Color
+                background-color: $edit;
+                color: black;
+
+                // Transition
+                transition: $transitionTime;
+
+                &:hover {
+                    // Cursor
+                    cursor: pointer;
+
+                    //Color
+                    background-color: $editHover;
+
+                    // Transition
+                    transition: $transitionTime;
+                }
+            }
+        }
+    }
+
     > .Data {
         // Flex
         display: flex;
@@ -46,5 +104,36 @@
         
         // Content position
         text-align: center;
+
+        > .Field {
+            // Object size
+            width: 100%;
+
+            // Content position
+            padding: 16px 24px;
+
+            // Text
+            font-size: 24px;
+
+            // Color
+
+            &.Date {
+                // Text
+                font-size: 36px;
+                font-family: $font-header;
+            }
+
+            &.Email {
+                // Text
+                font-size: 24px;
+                font-family: $font-header;
+            }
+
+            &.TextContent {
+                // Text
+                font-size: 24px;
+                font-family: $font-normal;
+            }
+        }
     }
 }

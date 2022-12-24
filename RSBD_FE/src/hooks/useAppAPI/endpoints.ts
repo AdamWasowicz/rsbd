@@ -8,7 +8,7 @@ export const getAllDataFromAllRegions: string = 'api/compact/post';
 
 // Functions
 export const postExamplePostToRegion = 
-    (regionId: regionIdType) => `/api/compact/post/${regionId}`;
+    (regionId: regionIdType) => `/api/compact/post/example/${regionId}`;
 
 export const getPostsFromRegion = 
     (regionId: regionIdType) => `/api/compact/post/${regionId}`;

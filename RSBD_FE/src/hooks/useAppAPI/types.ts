@@ -3,7 +3,7 @@ import PostType from "../../assets/types/PostType";
 export type regionIdType = 'eu' | 'us' | 'as';
 
 export type postPostDTO = {
-    regionId: string,
+    regionId: regionIdType,
     email: string,
     textContent: string
 };

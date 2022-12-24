@@ -1,19 +1,36 @@
-import React, { useEffect } from 'react';
-import { useAppSelector } from '../../redux/hooks';
-import useAPI from '../../hooks/useAPI';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import useAPI from '../../hooks/useAppAPI';
+import PostType from '../../assets/types/PostType';
+import { setIsFetching, setPosts } from '../../redux/features/post-slice';
 
 
 const usePostsContainer = () => {
     const posts = useAppSelector(state => state.post.posts);
     const api = useAPI();
+    const dispatch = useAppDispatch();
+
+    const [isWorking, setIsWorking] = useState<boolean>(false);
+
+    const handleSetIsWorking = (value: boolean) => {
+        setIsWorking(value);
+    } 
 
     useEffect(() => {
-        api.fetchAllRegionData(true);
+        dispatch(setIsFetching(true))
+
+        api.getAllRegionsPosts()
+            .then((data: PostType[]) => {
+                dispatch(setPosts(data));
+            })
+            .finally(() => {
+                dispatch(setIsFetching(false))
+            });
     }, [])
 
 
     return {
-        posts, 
+        posts, handleSetIsWorking, isWorking
     }
 }
 

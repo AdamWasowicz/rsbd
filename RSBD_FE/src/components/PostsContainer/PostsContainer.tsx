@@ -1,6 +1,7 @@
 import React from 'react';
 import usePostsContainer from './utilts';
-import Post from '../Post/Post';
+import Post from '../Post';
+import './style.scss';
 
 const PostsContainer: React.FC = () => {
     const {

@@ -1,4 +1,4 @@
-import { regionIdType } from "../../hooks/useAppHTTP/types";
+import { regionIdType } from "../../hooks/useAppAPI/types";
 
 export default interface PostType {
     id: number;
