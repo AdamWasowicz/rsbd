@@ -1,11 +1,15 @@
 import React from 'react';
+import ServersContainer from '../../components/ServersContainer/ServersContainer';
+import './style.scss'
 
 
 const Servers: React.FC = () => {
 
     return (
-        <div>
-            Servers
+        <div className='Servers'>
+            <div className='Content'>
+                <ServersContainer/>
+            </div>
         </div>
     )
 }

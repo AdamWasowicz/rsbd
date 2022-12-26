@@ -1,0 +1,19 @@
+@mixin PageBase($marginTop: 24px) {
+    // Object size
+    min-height: 100vh;
+    width: 100%;
+
+    // Content position
+    text-align: center;
+
+    > .Content {
+        // Object size
+        width: 100%;
+        max-width: 2000px;
+
+        // Content position
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: $marginTop;
+    }
+}
