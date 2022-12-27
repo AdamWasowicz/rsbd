@@ -1,4 +1,4 @@
-@mixin PageBase($marginTop: 24px) {
+@mixin PageBase($marginTop: 24px, $marginBottom: 24px) {
     // Object size
     min-height: 100vh;
     width: 100%;
@@ -11,9 +11,10 @@
         width: 100%;
         max-width: 2000px;
 
-        // Content position
+        // Object position
         margin-left: auto;
         margin-right: auto;
         margin-top: $marginTop;
+        margin-bottom: $marginBottom;
     }
 }

@@ -13,7 +13,6 @@ module.exports = () => {
     },
 
     devServer: {
-
       allowedHosts: 'all',
       hot: true,
       historyApiFallback: true,
@@ -51,7 +50,7 @@ module.exports = () => {
     },
 
     output: {
-      filename: 'bundle.js',
+      filename: 'index.js',
       publicPath: '/',
       path: path.resolve(__dirname, '../dist'),
       clean: true,

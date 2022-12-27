@@ -1,0 +1,257 @@
+@import '../../assets/constants/styleConstants.scss';
+
+
+.CreatePostForm {
+    // Object position
+    position: relative;
+
+    // Shadow
+    box-shadow: $boxShadow;
+
+    >.Overlay {
+        // Object position
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        // Object size
+        width: 100%;
+        height: 100%;
+
+        >.Cover {
+            // Object size
+            width: 100%;
+            height: 100%;
+
+            position: absolute;
+            background-color: black;
+            opacity: 0.75;
+        }
+
+        >.Loader {
+            position: absolute;
+            z-index: 2;
+            transform: translate(50%, 50%);
+        }
+    }
+
+    >.Content {
+        // Content positon
+        padding: 16px;
+
+        >h1 {
+            // Text
+            font-family: $font-header;
+            font-weight: bold;
+            font-size: 48px;
+            letter-spacing: 4px;
+            word-spacing: 8px;
+
+            // Content positon
+            padding-bottom: 4px;
+
+            // Object position
+            margin-bottom: 8px;
+
+            // Border
+            border-bottom: 2px solid gainsboro;
+        }
+
+        >.FieldsContainer {
+
+            >.Field {
+                // Flex
+                display: flex;
+                flex-direction: column;
+
+                // Content positon
+                padding-bottom: 16px;
+
+                // Object position
+                margin-bottom: 48px;
+
+                >h2 {
+                    // Object position
+                    margin-bottom: 8px;
+
+                    // Text
+                    font-size: 32px;
+                    font-family: $font-normal;
+                    font-weight: normal;
+                    letter-spacing: 2px;
+
+                    &.INVALID {
+                        color: red
+                    }
+                }
+
+                >.ButtonsContainer {
+                    // Flex
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    flex-wrap: nowrap;
+                    column-gap: 16px;
+                    row-gap: 16px;
+
+                    >button {
+                        // Object size
+                        width: 100%;
+
+                        // Content positon
+                        padding: 16px 32px;
+
+                        // Text
+                        font-family: $font-header;
+                        font-size: 32px;
+                        letter-spacing: 2px;
+                        text-align: center;
+
+                        transition: $transitionTime;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+
+                        &.EU.SELECTED {
+                            background-color: $eu;
+
+                            &:hover {
+                                background-color: $euHover;
+                            }
+                        }
+
+                        &.US.SELECTED {
+                            background-color: $us;
+
+                            &:hover {
+                                background-color: $usHover;
+                            }
+                        }
+
+                        &.AS.SELECTED {
+                            background-color: $as;
+
+                            &:hover {
+                                background-color: $asHover;
+                            }
+                        }
+                    }
+                }
+
+                >input {
+                    // Content positon 
+                    padding: 16px 24px;
+
+                    // Text
+                    font-family: $font-normal;
+                    font-size: 24px;
+                    text-align: center;
+
+                    // Other
+                    &:focus {
+                        outline: none;
+                        border: 2px solid $selected;
+                    }
+
+                    &.INVALID {
+                        outline: none;
+                        border: 2px solid red;
+                    }
+                }
+
+                >textarea {
+                    // Object size
+                    width: 100%;
+                    min-height: 200px;
+
+                    // Content position
+                    padding: 16px;
+
+                    // Text
+                    font-family: $font-normal;
+                    font-size: 24px;
+
+                    // Other
+                    resize: vertical;
+
+                    &:focus {
+                        outline: none;
+                        border: 2px solid $selected;
+                    }
+
+                    &.INVALID {
+                        outline: none;
+                        border: 2px solid red;
+                    }
+                }
+
+                >.Errors {
+                    // Object size
+                    width: 100%;
+
+                    // Object position
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-top: 24px;
+
+                    // Content position
+                    padding: 16px;
+
+                    // Border
+
+
+                    >li {
+                        // Object size
+                        width: fit-content;
+
+                        // Object positon
+                        margin-left: auto;
+                        margin-right: auto;
+
+                        // Text
+                        font-family: $font-normal;
+                        font-size: 24px;
+
+                        // Color
+                        color: red;
+                        border-bottom: 2px solid red;
+
+                    }
+                }
+            }
+        }
+
+        >button.Submit {
+            // Object size
+            width: 40%;
+
+            // Object positon
+            margin-left: auto;
+            margin-right: auto;
+
+            // Content position
+            padding: 16px 24px;
+
+            // Text
+            font-family: $font-header;
+            font-size: 32px;
+            letter-spacing: 4px;
+
+            // Transition
+            transition: $transitionTime;
+
+            // Color
+            background-color: $selected;
+            color: white;
+
+            &:hover {
+                // Color
+                background-color: $selectedHover;
+
+                // Transition
+                transition: $transitionTime;
+            }
+        }
+    }
+}

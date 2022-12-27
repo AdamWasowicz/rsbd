@@ -19,11 +19,15 @@ const postSlice = createSlice({
     initialState,
     reducers: {
         setPosts(state: PostState, action: PayloadAction<PostType[]>) {
+            // New first
             action.payload.sort((a, b) => {
-                if (a.id > b.id)
-                    return 1;
-                else if (a.id < b.id)
+                const aDate = new Date(a.creationDate);
+                const bDate = new Date(b.creationDate);
+
+                if (aDate > bDate)
                     return -1;
+                else if (aDate < bDate)
+                    return 1;
                 
                 return 0;         
             })
@@ -31,7 +35,7 @@ const postSlice = createSlice({
         },
 
         addPost(state: PostState, action: PayloadAction<PostType>) {
-            state.posts = [...state.posts, action.payload];
+            state.posts = [action.payload, ...state.posts,];
         },
 
         addPosts(state: PostState, action: PayloadAction<PostType[]>) {

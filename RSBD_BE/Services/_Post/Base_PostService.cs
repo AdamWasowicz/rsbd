@@ -33,6 +33,7 @@ namespace RSBD_BE.Services
             };
 
             _writeContext.Add(newPost);
+            _writeContext.SaveChanges();
 
             return newPost;
         }

@@ -19,9 +19,12 @@ $standardYellowText: black;
 $standardOrange: #FB8500;
 $standardOrangeText: white;
 
-$eu: purple;
-$us: red;
-$as: gold;
+$eu: rgb(209, 38, 209);
+$euHover: purple;
+$us: rgb(85, 255, 0);
+$usHover: rgb(82, 191, 27);
+$as: rgb(0, 234, 255);
+$asHover: rgb(34, 173, 185);
 
 $delete: #EF233C;
 $deleteHover: #D90429; 
@@ -31,6 +34,7 @@ $save: rgb(22, 186, 22);
 $saveHover: rgb(36, 145, 36);
 
 $selected: #2592eb;
+$selectedHover: #2775b4;
 
 
 // Fonts
