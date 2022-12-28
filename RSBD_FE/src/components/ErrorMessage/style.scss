@@ -1,0 +1,35 @@
+@import '../../assets/constants/styleConstants.scss';
+
+
+.ErrorMessage {
+    // Flex
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    // Object size
+    width: 60%;
+    min-height: 200px;
+
+    // Object position
+    margin-left: auto;
+    margin-right: auto;
+    
+    // Content position
+    padding: 16px;
+
+    // Other
+    box-shadow: $boxShadow;
+
+    > h1 {
+        // Text
+        font-size: 48px;
+        font-family: $font-header;
+    }
+
+    p {
+        // Text
+        font-size: 32px;
+        font-family: $font-normal;
+    }
+}

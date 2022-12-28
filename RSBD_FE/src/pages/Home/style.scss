@@ -3,4 +3,27 @@
 
 .Home {
     @include PageBase();
+
+    position: relative;
+    
+    > .Content {
+        width: 80%;
+    }
+
+    >.Overlay {
+        // Object position
+        position: absolute;
+        top: 0;
+        left: 25%;
+
+        // Object size
+        width: 100%;
+        height: 100%;
+
+        >.Loader {
+            position: absolute;
+            z-index: 2;
+            transform: translate(50%, 50%);
+        }
+    }
 }

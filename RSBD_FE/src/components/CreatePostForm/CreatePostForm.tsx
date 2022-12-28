@@ -15,6 +15,7 @@ const CreatePostForm: React.FC = () => {
         isFetching
     } = useCreatePostForm();
 
+
     return (
         <div className='CreatePostForm'>
             {
