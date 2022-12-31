@@ -4,6 +4,7 @@ import PostsContainer from '../../components/PostsContainer';
 import useHome from './useHome';
 import ReactLoading from 'react-loading';
 import ErrorMessage from '../../components/ErrorMessage';
+import PostFilter from '../../components/PostFilter';
 
 
 const Home: React.FunctionComponent = () => {
@@ -16,6 +17,7 @@ const Home: React.FunctionComponent = () => {
 
     return (
         <div className='Home'>
+            <PostFilter/>
             {
                 isFetching &&
                 <div className='Overlay'>

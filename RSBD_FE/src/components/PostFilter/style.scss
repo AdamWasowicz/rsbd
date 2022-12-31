@@ -1,0 +1,68 @@
+@import '../../assets/constants/styleConstants.scss';
+
+
+.PostFilter {
+    // Flex
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 8px;
+
+    // Object size
+    width: 100%;
+    
+    // Content position
+    padding: 16px;
+
+    // Background
+    background-color: $darkBlue;
+
+    // Text
+    color: $darkBlueText;
+
+    > h1 {
+        // Text
+        font-size: 48px;
+        font-family: $font-header;
+        letter-spacing: 4px;
+    }
+
+    > .Content {
+        // Flex
+        display: flex;
+        flex-direction: row;
+
+        > .Field {
+            // Flex
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            // Content positon
+            padding: 8px 16px 8px 0; 
+
+            > h2 {
+                // Text
+                font-family: $font-header;
+                font-size: 36px;
+            }
+
+            > input {
+                // Object size
+                width: 36px;
+                height: 36px;
+
+                accent-color: $standardYellow;
+
+                // Object position
+                margin-left: 16px;
+
+                &:hover {
+                    // Other
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

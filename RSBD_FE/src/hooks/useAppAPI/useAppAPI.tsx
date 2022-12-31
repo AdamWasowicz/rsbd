@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addError } from '../../redux/features/post-slice';
 import { deletePostDTO, patchPostDTO, postPostDTO, regionIdType } from './types';
 import axios from 'axios';
@@ -8,6 +8,10 @@ import PostType from '../../assets/types/PostType';
 
 
 const useAppAPI = () => {
+    const fetchEU = useAppSelector(state => state.post.fetchEU);
+    const fetchUS = useAppSelector(state => state.post.fetchUS);
+    const fetchAS = useAppSelector(state => state.post.fetchAS);
+
     const dispatch = useAppDispatch();
 
 
@@ -77,6 +81,45 @@ const useAppAPI = () => {
         return data;
     }
 
+    const getFilteredRegionsPosts = async (): Promise<PostType[]> => {
+        let data: PostType[] = [];
+
+        // EU
+        if (fetchEU) {
+            try {
+                const newData = await getEU_Data();
+                data = [...newData, ...data];
+            }
+            catch {
+                dispatch(addError("Fetching EU data failed"))
+            }
+        }
+
+        // US 
+        if (fetchUS) {
+            try {
+                const newData = await getUS_Data();
+                data = [...newData, ...data];
+            }
+            catch {
+                dispatch(addError("Fetching US data failed"))
+            }
+        }
+
+        // AS
+        if (fetchAS) {
+            try {
+                const newData = await getAS_Data();
+                data = [...newData, ...data];
+            }
+            catch {
+                dispatch(addError("Fetching AS data failed"))
+            }
+        }
+
+        return data;
+    }
+
     const getPostFromRegionById = async (regionId: regionIdType, id: number): Promise<PostType> => {
         const request = await apiAxiosClient.get<PostType>(endpoints.getPostFromRegionById(regionId, id));
         return request.data;
@@ -106,25 +149,25 @@ const useAppAPI = () => {
     }
 
     const getPrimaryServerStatusFromRegion = async (regionId: regionIdType): Promise<boolean> => {
-        const request =  await apiAxiosClient.get<boolean>(endpoints.getPrimaryServerStatusFromRegion(regionId));
+        const request = await apiAxiosClient.get<boolean>(endpoints.getPrimaryServerStatusFromRegion(regionId));
         return request.data;
     }
 
     const getSecondaryServerStatusFromRegion = async (regionId: regionIdType): Promise<boolean> => {
-        const request =  await apiAxiosClient.get<boolean>(endpoints.getSecondaryServerStatusFromRegion(regionId));
+        const request = await apiAxiosClient.get<boolean>(endpoints.getSecondaryServerStatusFromRegion(regionId));
         return request.data;
     }
 
 
 
     return {
-        apiAxiosClient, 
+        apiAxiosClient,
         getEU_Data, getUS_Data, getAS_Data,
         getAllRegionsPosts, getPostFromRegionById,
         deletePost, postPost, postExamplePostToRegion,
         patchPost,
-        getPrimaryServerStatusFromRegion, getSecondaryServerStatusFromRegion
-
+        getPrimaryServerStatusFromRegion, getSecondaryServerStatusFromRegion,
+        getFilteredRegionsPosts
     }
 }
 

@@ -6,12 +6,20 @@ export interface PostState {
     posts: PostType[];
     errors: string[],
     isFetching: boolean
+
+    fetchEU: boolean,
+    fetchUS: boolean,
+    fetchAS: boolean,
 }
 
 const initialState: PostState = {
     posts: [],
     errors: [],
-    isFetching: false
+    isFetching: false,
+
+    fetchEU: true,
+    fetchUS: true,
+    fetchAS: true,
 }
 
 const postSlice = createSlice({
@@ -95,7 +103,19 @@ const postSlice = createSlice({
 
         setIsFetching(state: PostState, action: PayloadAction<boolean>) {
             state.isFetching = action.payload;
-        }
+        },
+
+        setFetchEU(state: PostState, action: PayloadAction<boolean>) {
+            state.fetchEU = action.payload;
+        },
+
+        setFetchUS(state: PostState, action: PayloadAction<boolean>) {
+            state.fetchUS = action.payload;
+        },
+
+        setFetchAS(state: PostState, action: PayloadAction<boolean>) {
+            state.fetchAS = action.payload;
+        },
     }
 })
 
@@ -104,6 +124,7 @@ export const {
     updatePost, addPosts,
     setErrors, addError, clearErrors,
     setIsFetching,
+    setFetchEU, setFetchUS, setFetchAS
 } = postSlice.actions;
 
 

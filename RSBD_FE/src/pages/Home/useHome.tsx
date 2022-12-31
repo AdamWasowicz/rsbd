@@ -9,22 +9,25 @@ const useHome = () => {
     const isFetching = useAppSelector(state => state.post.isFetching);
     const posts = useAppSelector(state => state.post.posts);
     const errors = useAppSelector(state => state.post.errors);
+    const fetchEU = useAppSelector(state => state.post.fetchEU);
+    const fetchUS = useAppSelector(state => state.post.fetchUS);
+    const fetchAS = useAppSelector(state => state.post.fetchAS);
 
     const dispatch = useAppDispatch();
     const api = useAppAPI();
 
-
+    // Fetch data
     useEffect(() => {
         dispatch(setIsFetching(true))
 
-        api.getAllRegionsPosts()
+        api.getFilteredRegionsPosts()
             .then((data: PostType[]) => {
                 dispatch(setPosts(data));
             })
             .finally(() => {
                 dispatch(setIsFetching(false))
             });
-    }, [])
+    }, [fetchEU, fetchUS, fetchAS])
 
     return {
         isFetching, posts, errors

@@ -7,13 +7,14 @@
     position: relative;
     
     > .Content {
+        // Object size
         width: 80%;
     }
 
     >.Overlay {
         // Object position
         position: absolute;
-        top: 0;
+        top: 24px;
         left: 25%;
 
         // Object size
@@ -21,6 +22,7 @@
         height: 100%;
 
         >.Loader {
+            // Object position
             position: absolute;
             z-index: 2;
             transform: translate(50%, 50%);
