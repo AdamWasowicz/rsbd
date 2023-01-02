@@ -2,14 +2,14 @@ import React from 'react';
 import './style.scss';
 
 interface ErrorMessage {
-    tittle: string,
+    title: string,
     textContent: string
 }
 
 const ErrorMessage: React.FC<ErrorMessage> = (props) => {
     return (
         <div className='ErrorMessage'>
-            <h1>{ props.tittle }</h1>
+            <h1>{ props.title }</h1>
 
             <p>{ props.textContent }</p>
         </div>

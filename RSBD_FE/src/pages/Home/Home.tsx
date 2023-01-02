@@ -38,9 +38,17 @@ const Home: React.FunctionComponent = () => {
                 }
 
                 {
+                    isFetching == false && posts.length == 0 &&
+                    <ErrorMessage
+                        title={'No posts'}
+                        textContent={"I couldn't find any posts fiting your search criteria"}
+                    />
+                }
+
+                {
                     isFetching == false && posts.length < 1 && errors.length > 0 &&
                     <ErrorMessage
-                         tittle={"Error occured"}
+                         title={"Error occured"}
                          textContent={"I couldn't fetch posts for you, I am very sorry. Please try again later."}
                      />
                 }
