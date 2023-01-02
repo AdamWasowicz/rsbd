@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eu-read-deployment
+  labels:
+    app: eu-read
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eu-read
+  template:
+    metadata:
+      labels:
+        app: eu-read
+        dude: "true"
+    spec:
+      containers:
+      - name: eu-read
+        image: rsbd_eu-db-read
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-password
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-db-slave
+        volumeMounts:
+          - mountPath: "/var/lib/postgresql/data"
+            name: eu-read-volume
+      volumes:
+        - name: eu-read-volume
+          persistentVolumeClaim:
+            claimName: eu-read-volume-claim
+              
+            

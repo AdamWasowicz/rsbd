@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eu-write-deployment
+  labels:
+    app: eu-write
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eu-write
+  template:
+    metadata:
+      labels:
+        app: eu-write
+        dude: "true"
+    spec:
+      containers:
+      - name: eu-write
+        image: rsbd_eu-db-write
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-password
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-db-master
+        volumeMounts:
+          - mountPath: "/var/lib/postgresql/data"
+            name: eu-read-volume
+      volumes:
+        - name: eu-write-volume
+          persistentVolumeClaim:
+            claimName: eu-write-volume-claim
+              
+            
