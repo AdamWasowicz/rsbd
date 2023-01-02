@@ -21,6 +21,7 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 5432
+          name: eu-read
         env:
         - name: POSTGRES_USER
           valueFrom:
@@ -44,5 +45,16 @@ spec:
         - name: eu-read-volume
           persistentVolumeClaim:
             claimName: eu-read-volume-claim
-              
-            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eu-read-service
+spec:
+  selector:
+    app: eu-read
+  type: LoadBalancer
+  ports:
+  - port: 5601
+    targetPort: eu-read
+    nodePort: 30000

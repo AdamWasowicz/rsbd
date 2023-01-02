@@ -39,10 +39,22 @@ spec:
               key: postgres-db-master
         volumeMounts:
           - mountPath: "/var/lib/postgresql/data"
-            name: eu-read-volume
+            name: eu-write-volume
       volumes:
         - name: eu-write-volume
           persistentVolumeClaim:
             claimName: eu-write-volume-claim
-              
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eu-write-service
+spec:
+  selector:
+    app: eu-write
+  type: LoadBalancer
+  ports:
+  - port: 5601
+    targetPort: eu-write
+    nodePort: 30001
             
