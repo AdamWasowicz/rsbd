@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: rsbd-api
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 2970
+          name: api
+        env:
+        - name: DB_EU_READ_CS
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: eu-read-connectionstring
+        - name: DB_EU_WRITE_CS
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: eu-write-connectionstring
+        - name: ASPNETCORE_URLS
+          valueFrom:
+            configMapKeyRef:
+              name: rsbd-configmap
+              key: api-urls
+        - name: MODE
+          valueFrom:
+            configMapKeyRef:
+              name: rsbd-configmap
+              key: api-mode
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  selector:
+    app: api
+  type: LoadBalancer
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: api

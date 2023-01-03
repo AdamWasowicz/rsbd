@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: eu-write
-        image: rsbd_eu-db-write
+        image: rsbd-eu-write
         imagePullPolicy: Never
         ports:
         - containerPort: 5432
@@ -52,9 +52,8 @@ metadata:
 spec:
   selector:
     app: eu-write
-  type: LoadBalancer
   ports:
   - port: 5601
+    protocol: TCP
     targetPort: eu-write
-    nodePort: 30001
             

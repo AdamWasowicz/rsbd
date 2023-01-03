@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: eu-read
-        image: rsbd_eu-db-read
+        image: rsbd-eu-read
         imagePullPolicy: Never
         ports:
         - containerPort: 5432
@@ -53,8 +53,7 @@ metadata:
 spec:
   selector:
     app: eu-read
-  type: LoadBalancer
   ports:
   - port: 5601
+    protocol: TCP
     targetPort: eu-read
-    nodePort: 30000
