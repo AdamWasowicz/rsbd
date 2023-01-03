@@ -9,7 +9,7 @@ CYAN='\033[0;96m'
 echo -e "${PURPLE}[DELETE PREVIOUS MIGRATIONS CATALOG] - BEGIN${COLOR_OFF}"
 
 # Remove current migrations
-if [ -d "../RSBD_BE/Migrations" ]; then
+if [ -d "../../RSBD_BE/Migrations" ]; then
   echo '[LOG] Migrations directory detected, begining deletion'
   rm -rf ../../RSBD_BE/Migrations
   rm -rf ../../RSBD_BE/RSBDBE

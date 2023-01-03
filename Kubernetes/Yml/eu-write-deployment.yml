@@ -21,6 +21,7 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 5432
+          name: eu-write
         env:
         - name: POSTGRES_USER
           valueFrom:
@@ -50,10 +51,11 @@ kind: Service
 metadata:
   name: eu-write-service
 spec:
+  type: NodePort
   selector:
     app: eu-write
   ports:
-  - port: 5601
-    protocol: TCP
+  - port: 5602
     targetPort: eu-write
+    nodePort: 30002
             

@@ -46,10 +46,10 @@ kind: Service
 metadata:
   name: api-service
 spec:
+  type: NodePort
   selector:
     app: api
-  type: LoadBalancer
   ports:
   - port: 8000
-    protocol: TCP
     targetPort: api
+    nodePort: 30010

@@ -10,9 +10,9 @@ echo -e "${CYAN}[APPLY MIGRATIONS] - BEGIN${COLOR_OFF}"
 
 dotnet ef database update -c EU_DbContext -p ../../RSBD_BE
 dotnet ef database update -c EU_ReadOnlyDbContext -p ../../RSBD_BE
-dotnet ef database update -c US_DbContext -p ../../RSBD_BE
-dotnet ef database update -c US_ReadOnlyDbContext -p ../../RSBD_BE
-dotnet ef database update -c AS_DbContext -p ../../RSBD_BE
-dotnet ef database update -c AS_ReadOnlyDbContext -p ../../RSBD_BE
+# dotnet ef database update -c US_DbContext -p ../../RSBD_BE
+# dotnet ef database update -c US_ReadOnlyDbContext -p ../../RSBD_BE
+# dotnet ef database update -c AS_DbContext -p ../../RSBD_BE
+# dotnet ef database update -c AS_ReadOnlyDbContext -p ../../RSBD_BE
 
 echo -e "${CYAN}[APPLY MIGRATIONS] - END${COLOR_OFF}"
