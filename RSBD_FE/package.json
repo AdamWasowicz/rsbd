@@ -1,6 +1,6 @@
 {
   "name": "rsbd_fe",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "RSBD_FE",
   "main": "app.js",
   "scripts": {
