@@ -7,7 +7,11 @@ echo -e "${PURPLE}[FULL SETUP] - BEGIN${COLOR_OFF}"
 
 source './applySecret.sh';
 source './applyConfigMap.sh'
+
 source './applyEu.sh';
+source './applyUs.sh';
+source './applyAs.sh';
+
 source './applyApi.sh'
 
 echo -e "${PURPLE}[FULL SETUP] - END${COLOR_OFF}"

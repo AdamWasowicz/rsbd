@@ -15,26 +15,55 @@ spec:
       containers:
       - name: api
         image: rsbd-api
+        resources:
         imagePullPolicy: Never
         ports:
         - containerPort: 2970
           name: api
         env:
+        # DB_EU_READ_CS
         - name: DB_EU_READ_CS
           valueFrom:
             secretKeyRef:
               name: rsbd-secret
               key: eu-read-connectionstring
+        # DB_EU_WRITE_CS
         - name: DB_EU_WRITE_CS
           valueFrom:
             secretKeyRef:
               name: rsbd-secret
               key: eu-write-connectionstring
+        # DB_US_READ_CS
+        - name: DB_US_READ_CS
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: us-read-connectionstring
+        # DB_US_WRITE_CS
+        - name: DB_US_WRITE_CS
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: us-write-connectionstring
+        # DB_AS_READ_CS
+        - name: DB_AS_READ_CS
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: as-read-connectionstring
+        # DB_US_WRITE_CS
+        - name: DB_AS_WRITE_CS
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: as-write-connectionstring
+        # ASPNETCORE_URLS
         - name: ASPNETCORE_URLS
           valueFrom:
             configMapKeyRef:
               name: rsbd-configmap
               key: api-urls
+        # MODE
         - name: MODE
           valueFrom:
             configMapKeyRef:

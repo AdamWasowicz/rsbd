@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: as-read-deployment
+  labels:
+    app: as-read
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: as-read
+  template:
+    metadata:
+      labels:
+        app: as-read
+        dude: "true"
+    spec:
+      containers:
+      - name: as-read
+        image: rsbd-as-read
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5432
+          name: as-read
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-password
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-db-slave
+        volumeMounts:
+          - mountPath: "/var/lib/postgresql/data"
+            name: as-read-volume
+      volumes:
+        - name: as-read-volume
+          persistentVolumeClaim:
+            claimName: as-read-volume-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: as-read-service
+spec:
+  type: NodePort
+  selector:
+    app: as-read
+  ports:
+  - port: 5605
+    targetPort: as-read
+    nodePort: 30005
