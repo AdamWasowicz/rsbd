@@ -128,41 +128,78 @@ const useAppAPI = () => {
     }
 
     const getPostFromRegionById = async (regionId: regionIdType, id: number): Promise<PostType> => {
-        const request = await apiAxiosClient.get<PostType>(endpoints.getPostFromRegionById(regionId, id));
-        return request.data;
+        try {
+            const request = await apiAxiosClient.get<PostType>(endpoints.getPostFromRegionById(regionId, id));
+            return request.data;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+        
     }
 
     const deletePost = async (post: deletePostDTO): Promise<boolean> => {
-        const request = await apiAxiosClient.delete<boolean>(endpoints.deletePost, {
-            data: post
-        })
-
-        return request.data;
+        try {
+            const request = await apiAxiosClient.delete<boolean>(endpoints.deletePost, {
+                data: post
+            })
+            return request.data;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+        
     }
 
     const postPost = async (post: postPostDTO): Promise<PostType> => {
-        const request = await apiAxiosClient.post<PostType>(endpoints.postPost, post);
-        return request.data;
+        try {
+            const request = await apiAxiosClient.post<PostType>(endpoints.postPost, post);
+            return request.data;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
     }
 
     const postExamplePostToRegion = async (regionId: regionIdType): Promise<PostType> => {
-        const request = await apiAxiosClient.post<PostType>(endpoints.postExamplePostToRegion(regionId));
-        return request.data;
+        try {
+            const request = await apiAxiosClient.post<PostType>(endpoints.postExamplePostToRegion(regionId));
+            return request.data;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+
     }
 
     const patchPost = async (post: patchPostDTO): Promise<PostType> => {
-        const request = await apiAxiosClient.patch<PostType>(endpoints.patchPost, post);
-        return request.data;
+        try {
+            const request = await apiAxiosClient.patch<PostType>(endpoints.patchPost, post);
+            return request.data;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
     }
 
     const getPrimaryServerStatusFromRegion = async (regionId: regionIdType): Promise<boolean> => {
-        const request = await apiAxiosClient.get<boolean>(endpoints.getPrimaryServerStatusFromRegion(regionId));
-        return request.data;
+        try {
+            const request = await apiAxiosClient.get<boolean>(endpoints.getPrimaryServerStatusFromRegion(regionId));
+            return request.data;
+        }
+        catch (error) {
+            return false;
+        }
     }
 
     const getSecondaryServerStatusFromRegion = async (regionId: regionIdType): Promise<boolean> => {
-        const request = await apiAxiosClient.get<boolean>(endpoints.getSecondaryServerStatusFromRegion(regionId));
-        return request.data;
+        try {
+            const request = await apiAxiosClient.get<boolean>(endpoints.getSecondaryServerStatusFromRegion(regionId));
+            return request.data;
+        }
+        catch (error) {
+            return false;
+        }
     }
 
 
