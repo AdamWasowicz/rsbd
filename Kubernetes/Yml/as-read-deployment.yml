@@ -18,6 +18,7 @@ spec:
       containers:
       - name: as-read
         image: rsbd-as-read
+        resources:
         imagePullPolicy: Never
         ports:
         - containerPort: 5432
