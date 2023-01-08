@@ -16,6 +16,8 @@ const useHome = () => {
     const dispatch = useAppDispatch();
     const api = useAppAPI();
 
+    console.log(errors);
+
     // Fetch data
     useEffect(() => {
         dispatch(setIsFetching(true))

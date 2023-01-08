@@ -24,6 +24,9 @@ namespace RSBD_BE.Services
         
         public Post InsertData(CreatePostDTO dto)
         {
+            if (dto.TextContent.Length > 256 || dto.TextContent.Length == 0)
+                throw new InvalidDataException("Data has errors");
+
             Post newPost = new Post()
             {
                 Email = dto.Email,
@@ -56,6 +59,9 @@ namespace RSBD_BE.Services
 
         public Post UpdateData(UpdatePostDTO dto)
         {
+            if (dto.TextContent.Length > 256 || dto.TextContent.Length == 0)
+                throw new InvalidDataException("Data has errors");
+
             var post = _readContext.Posts
                 .Where(p => p.Id == dto.Id)
                     .FirstOrDefault();

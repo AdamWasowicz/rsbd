@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { addError } from '../../redux/features/post-slice';
+import { addError, clearErrors } from '../../redux/features/post-slice';
 import { deletePostDTO, patchPostDTO, postPostDTO, regionIdType } from './types';
 import axios from 'axios';
 import * as endpoints from './endpoints';
@@ -28,10 +28,15 @@ const useAppAPI = () => {
     const getRegion_Data = async (regionId: regionIdType): Promise<PostType[]> => {
         let data: PostType[] = [];
 
-        await apiAxiosClient.get<PostType[]>(endpoints.getPostsFromRegion(regionId))
-            .then((response => {
-                data = response.data;
-            }));
+        try {
+            await apiAxiosClient.get<PostType[]>(endpoints.getPostsFromRegion(regionId))
+                .then((response => {
+                    data = response.data;
+                }));
+        }
+        catch (error) {
+            throw new Error(`Error while fetching from ${regionId.toLocaleUpperCase}`);
+        }
 
         return data;
     }
@@ -50,6 +55,7 @@ const useAppAPI = () => {
 
     const getAllRegionsPosts = async (): Promise<PostType[]> => {
         let data: PostType[] = [];
+        dispatch(clearErrors());
 
         // EU
         try {
@@ -83,6 +89,7 @@ const useAppAPI = () => {
 
     const getFilteredRegionsPosts = async (): Promise<PostType[]> => {
         let data: PostType[] = [];
+        dispatch(clearErrors());
 
         // EU
         if (fetchEU) {

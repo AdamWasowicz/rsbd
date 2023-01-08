@@ -15,6 +15,9 @@ const usePost = (post: PostType) => {
     const [e_textContent, setE_textContent] = useState<string>(post.textContent);
 
     const handleE_textContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        if (event.currentTarget.value.length > 256)
+            return;
+        
         setE_textContent(event.currentTarget.value);
     }
 
@@ -44,6 +47,11 @@ const usePost = (post: PostType) => {
     }
 
     const handlePostPatching = () => {
+        if (e_textContent.length > 256) {
+            alert('Text conntent cannot exced 256 characters');
+            return;
+        }
+        
         handleSetIsActionInProgress(true);
 
         const dto: patchPostDTO = {

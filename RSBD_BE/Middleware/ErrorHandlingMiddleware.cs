@@ -25,6 +25,11 @@ namespace RSBD_BE.Middleware
                 context.Response.StatusCode = 400;
                 context.Response.WriteAsync("Wrong data provided");
             }
+            catch (InvalidDataException exception)
+            {
+                context.Response.StatusCode = 400;
+                context.Response.WriteAsync(exception.Message);
+            }
             catch (Exception exception)
             {
                 context.Response.StatusCode = 500;
