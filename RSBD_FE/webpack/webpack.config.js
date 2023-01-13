@@ -18,6 +18,9 @@ module.exports = () => {
       historyApiFallback: true,
       port: 3000,
       open: true,
+      headers: {
+        'Cache-Control': 'no-store',
+      },
     },
 
     mode: 'development',
@@ -63,9 +66,8 @@ module.exports = () => {
       }),
 
       new EnvironmentPlugin({
-
         REACT_APP_API_URL: process.env.REACT_APP_API_URL != null ?
-          process.env.REACT_APP_API_URL : "http://localhost:8000",
+          process.env.REACT_APP_API_URL : "http://localhost:30010",
       })
     ],
   }

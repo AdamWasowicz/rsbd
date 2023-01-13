@@ -12,8 +12,6 @@ const Home: React.FunctionComponent = () => {
         isFetching, posts, errors
     } = useHome();
 
-    console.log(posts)
-
 
     return (
         <div className='Home'>

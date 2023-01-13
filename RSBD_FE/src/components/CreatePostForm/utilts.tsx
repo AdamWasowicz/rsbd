@@ -79,6 +79,7 @@ const useCreatePostForm = () => {
         apiClient.postPost(dto)
             .then((response) => {
                 dispatch(addPost(response));
+                console.log(response);
                 alert('Success')
                 navigation('/');
             })

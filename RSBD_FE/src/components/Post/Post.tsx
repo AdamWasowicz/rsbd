@@ -25,6 +25,11 @@ const Post: React.FC<PostProps> = (props) => {
         isActionInProgress
     } = usePost(props.data);
 
+
+    if (props.data == null)
+        return (<></>)
+
+    
     return (
         <div className='Post'>
             {

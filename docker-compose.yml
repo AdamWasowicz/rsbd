@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  frontend:
-    container_name: RSBD_FE
+  app:
+    container_name: app
     build:
       context: './RSBD_FE'
       dockerfile: Dockerfile
@@ -11,13 +11,11 @@ services:
     ports:
       - "3000:80"
     volumes:
-      - 'fe-v:/app'
+      - '.:/app'
       - '/app/RSBD_FE/node_modules'
-    networks:
-      - frontendNetwork
 
   api:
-    container_name: RSBD_BE
+    container_name: api
     build: 
       context: ./RSBD_BE
       dockerfile: Dockerfile
@@ -45,8 +43,8 @@ services:
 
   # EU
   # WRITE
-  eu-db-write:
-    container_name: EU-DB-WRITE
+  eu-write:
+    container_name: eu-write
     build: ./dbConfig/master
     restart: always
     environment:
@@ -61,8 +59,8 @@ services:
       - 'eu-db-write-v:/var/lib/postgresql/data'
   
   # READ
-  eu-db-read:
-    container_name: EU-DB-READ
+  eu-read:
+    container_name: eu-read
     build: ./dbConfig/slave
     restart: always
     environment:
@@ -78,8 +76,8 @@ services:
 
   # US
   # WRITE
-  us-db-write:
-    container_name: US-DB-WRITE
+  us-write:
+    container_name: us-write
     build: ./dbConfig/master
     restart: always
     environment:
@@ -94,8 +92,8 @@ services:
       - 'us-db-write-v:/var/lib/postgresql/data'
 
   # READ
-  us-db-read:
-    container_name: US-DB-READ
+  us-read:
+    container_name: us-read
     build: ./dbConfig/slave
     restart: always
     environment:
@@ -111,8 +109,8 @@ services:
 
   # AS
   # WRITE
-  as-db-write:
-    container_name: AS-DB-WRITE
+  as-write:
+    container_name: as-write
     build: ./dbConfig/master
     restart: always
     environment:
@@ -127,8 +125,8 @@ services:
       - 'as-db-write-v:/var/lib/postgresql/data'
   
   # READ
-  as-db-read:
-    container_name: AS-DB-READ
+  as-read:
+    container_name: as-read
     build: ./dbConfig/slave
     restart: always
     environment:
@@ -154,4 +152,3 @@ volumes:
 
 networks:
     backendNetwork:
-    frontendNetwork:

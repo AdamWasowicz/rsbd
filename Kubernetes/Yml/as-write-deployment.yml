@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: as-write-deployment
+  labels:
+    app: as-write
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: as-write
+  template:
+    metadata:
+      labels:
+        app: as-write
+        dude: "true"
+    spec:
+      containers:
+      - name: as-write
+        image: rsbd-as-write
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5432
+          name: as-write
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-password
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: rsbd-secret
+              key: postgres-db-master
+        volumeMounts:
+          - mountPath: "/var/lib/postgresql/data"
+            name: as-write-volume
+      volumes:
+        - name: as-write-volume
+          persistentVolumeClaim:
+            claimName: as-write-volume-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: as-write-service
+spec:
+  type: NodePort
+  selector:
+    app: as-write
+  ports:
+  - port: 5606
+    targetPort: as-write
+    nodePort: 30006
+            

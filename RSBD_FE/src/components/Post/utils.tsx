@@ -14,6 +14,7 @@ const usePost = (post: PostType) => {
     const [inEditMode, setInEditMode] = useState<boolean>(false);
     const [e_textContent, setE_textContent] = useState<string>(post.textContent);
 
+    
     const handleE_textContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         if (event.currentTarget.value.length > 256)
             return;
@@ -34,12 +35,14 @@ const usePost = (post: PostType) => {
 
         apiClient.deletePost(post)
             .then((value: boolean) => {
-                if (value == true) {
-                    dispatch(removePost(post))
-                }
+                if (value == true) 
+                    dispatch(removePost(post))              
+                else (value == false)
+                    throw new Error();
+
             })
             .catch((error) => {
-
+                alert("Couldn't delete this post")
             })
             .finally(() => {
                 handleSetIsActionInProgress(false);
@@ -62,11 +65,17 @@ const usePost = (post: PostType) => {
 
         apiClient.patchPost(dto)
             .then((value) => {
-                dispatch(updatePost({old: post, new: value}))
-                switchEditMode();
+                console.log(value)
+                if (value.creationDate != null) {
+                    dispatch(updatePost({old: post, new: value}))
+                    switchEditMode();
+                }
+                else
+                    throw new Error();
+
             })
             .catch((error) => {
-
+                alert("Couldn't upadate post");
             })
             .then(() => {
                 handleSetIsActionInProgress(false);
@@ -81,7 +90,7 @@ const usePost = (post: PostType) => {
 
     const getFormatedDate = (): string => {
         const date = new Date(post.creationDate);
-        const formatedDate = `${date.getDate()} / ${date.getMonth()} / ${date.getFullYear()}`;
+        const formatedDate = `${date.getDate()} / ${date.getMonth() + 1 } / ${date.getFullYear()}`;
 
         return formatedDate;
     }
