@@ -13,6 +13,8 @@ namespace RSBD_BE.Services
         private readonly BaseDbContext _writeContext;
         private readonly ReadOnlyBaseDbContext _readContext;
         private readonly string _regionId = "DEFAULT";
+        private readonly string _readServerId = "Read";
+        private readonly string _writeServerId = "Write";
 
         public Base_PostService(BaseDbContext writeContext, ReadOnlyBaseDbContext readContext, string regionId)
         {
@@ -35,8 +37,16 @@ namespace RSBD_BE.Services
                 CreationDate = DateTime.Now,
             };
 
-            _writeContext.Add(newPost);
-            _writeContext.SaveChanges();
+            try
+            {
+                _writeContext.Add(newPost);
+                _writeContext.SaveChanges();
+            }
+            catch (System.InvalidOperationException _)
+            {
+                throw new ServerNotAvailableException(_regionId, _writeServerId);
+            }
+
 
             return newPost;
         }
@@ -51,8 +61,15 @@ namespace RSBD_BE.Services
                 CreationDate = DateTime.Now,
             };
 
-            _writeContext.Add(newPost);
-            _writeContext.SaveChanges();
+            try
+            {
+                _writeContext.Add(newPost);
+                _writeContext.SaveChanges();
+            }
+            catch (System.InvalidOperationException _)
+            {
+                throw new ServerNotAvailableException(_regionId, _writeServerId);
+            }
 
             return newPost;
         }
@@ -62,9 +79,17 @@ namespace RSBD_BE.Services
             if (dto.TextContent.Length > 256 || dto.TextContent.Length == 0)
                 throw new InvalidDataException("Data has errors");
 
-            var post = _readContext.Posts
-                .Where(p => p.Id == dto.Id)
-                    .FirstOrDefault();
+            Post? post = null;
+            try
+            {
+                post = _readContext.Posts
+                    .Where(p => p.Id == dto.Id)
+                        .FirstOrDefault();
+            }
+            catch (System.InvalidOperationException _)
+            {
+                throw new ServerNotAvailableException(_regionId, _readServerId);
+            }
 
             if (post == null)
                 throw new ResourceNotFoundException();
@@ -72,31 +97,64 @@ namespace RSBD_BE.Services
             // Update
             post.TextContent = dto.TextContent;
 
-            _writeContext.Update(post);
-            _writeContext.SaveChanges();
+
+            try
+            {
+                _writeContext.Update(post);
+                _writeContext.SaveChanges();
+            }
+            catch (System.InvalidOperationException _)
+            {
+                throw new ServerNotAvailableException(_regionId, _writeServerId);
+            }
 
             return post;
         }
 
         public bool DeleteData(DeletePostDTO dto)
         {
-            var post = _writeContext.Posts
-                .Where(p => p.Id == dto.Id)
-                    .FirstOrDefault();
+            Post? post = null;
+            try
+            {
+                post = _writeContext.Posts
+                    .Where(p => p.Id == dto.Id)
+                        .FirstOrDefault();
+            }
+            catch (System.InvalidOperationException _)
+            {
+                throw new ServerNotAvailableException(_regionId, _readServerId);
+            }
+
 
             if (post == null)
                 throw new ResourceNotFoundException();
 
-            _writeContext.Remove(post);
-            _writeContext.SaveChanges();
+            try
+            {
+                _writeContext.Remove(post);
+                _writeContext.SaveChanges();
+            }
+            catch (System.InvalidOperationException _)
+            {
+                throw new ServerNotAvailableException(_regionId, _writeServerId);
+            }
 
             return true;
         }
 
         public List<Post> GetAllData()
         {
-            var posts = _readContext.Posts
-                .ToList();
+            List<Post> posts = new List<Post>();
+
+            try
+            {
+                posts = _readContext.Posts
+                    .ToList();
+            }
+            catch (System.InvalidOperationException _)
+            {
+                throw new ServerNotAvailableException(_regionId, _readServerId);
+            }
 
             return posts;
         }
@@ -111,9 +169,17 @@ namespace RSBD_BE.Services
 
         public Post GetDataById(int id)
         {
-            var post = _readContext.Posts
-                .Where(p => p.Id == id)
-                    .FirstOrDefault();
+            Post? post = null;
+            try
+            {
+                post = _readContext.Posts
+                    .Where(p => p.Id == id)
+                        .FirstOrDefault();
+            }
+            catch (System.InvalidOperationException _)
+            {
+                throw new ServerNotAvailableException(_regionId, _readServerId);
+            }
 
             if (post == null)
                 throw new ResourceNotFoundException();

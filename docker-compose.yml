@@ -11,7 +11,7 @@ services:
     ports:
       - "3000:80"
     volumes:
-      - 'fe-v:/app'
+      - '.:/app'
       - '/app/RSBD_FE/node_modules'
 
   api:

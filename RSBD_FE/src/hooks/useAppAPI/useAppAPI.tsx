@@ -129,8 +129,8 @@ const useAppAPI = () => {
 
     const getPostFromRegionById = async (regionId: regionIdType, id: number): Promise<PostType> => {
         try {
-            const request = await apiAxiosClient.get<PostType>(endpoints.getPostFromRegionById(regionId, id));
-            return request.data;
+            const response = await apiAxiosClient.get<PostType>(endpoints.getPostFromRegionById(regionId, id));
+            return response.data;
         }
         catch (error) {
             throw new Error(error);
@@ -140,10 +140,10 @@ const useAppAPI = () => {
 
     const deletePost = async (post: deletePostDTO): Promise<boolean> => {
         try {
-            const request = await apiAxiosClient.delete<boolean>(endpoints.deletePost, {
+            const response = await apiAxiosClient.delete<boolean>(endpoints.deletePost, {
                 data: post
             })
-            return request.data;
+            return response.data;
         }
         catch (error) {
             throw new Error(error);
@@ -153,8 +153,8 @@ const useAppAPI = () => {
 
     const postPost = async (post: postPostDTO): Promise<PostType> => {
         try {
-            const request = await apiAxiosClient.post<PostType>(endpoints.postPost, post);
-            return request.data;
+            const response = await apiAxiosClient.post<PostType>(endpoints.postPost, post);
+            return response.data;
         }
         catch (error) {
             throw new Error(error);
@@ -163,8 +163,8 @@ const useAppAPI = () => {
 
     const postExamplePostToRegion = async (regionId: regionIdType): Promise<PostType> => {
         try {
-            const request = await apiAxiosClient.post<PostType>(endpoints.postExamplePostToRegion(regionId));
-            return request.data;
+            const response = await apiAxiosClient.post<PostType>(endpoints.postExamplePostToRegion(regionId));
+            return response.data;
         }
         catch (error) {
             throw new Error(error);
@@ -174,8 +174,8 @@ const useAppAPI = () => {
 
     const patchPost = async (post: patchPostDTO): Promise<PostType> => {
         try {
-            const request = await apiAxiosClient.patch<PostType>(endpoints.patchPost, post);
-            return request.data;
+            const response = await apiAxiosClient.patch<PostType>(endpoints.patchPost, post);
+            return response.data;
         }
         catch (error) {
             throw new Error(error);
@@ -184,8 +184,8 @@ const useAppAPI = () => {
 
     const getPrimaryServerStatusFromRegion = async (regionId: regionIdType): Promise<boolean> => {
         try {
-            const request = await apiAxiosClient.get<boolean>(endpoints.getPrimaryServerStatusFromRegion(regionId));
-            return request.data;
+            const response = await apiAxiosClient.get<boolean>(endpoints.getPrimaryServerStatusFromRegion(regionId));
+            return response.data;
         }
         catch (error) {
             return false;
@@ -194,8 +194,8 @@ const useAppAPI = () => {
 
     const getSecondaryServerStatusFromRegion = async (regionId: regionIdType): Promise<boolean> => {
         try {
-            const request = await apiAxiosClient.get<boolean>(endpoints.getSecondaryServerStatusFromRegion(regionId));
-            return request.data;
+            const response = await apiAxiosClient.get<boolean>(endpoints.getSecondaryServerStatusFromRegion(regionId));
+            return response.data;
         }
         catch (error) {
             return false;

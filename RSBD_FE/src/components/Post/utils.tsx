@@ -35,9 +35,11 @@ const usePost = (post: PostType) => {
 
         apiClient.deletePost(post)
             .then((value: boolean) => {
-                if (value == true) {
-                    dispatch(removePost(post))
-                }
+                if (value == true) 
+                    dispatch(removePost(post))              
+                else (value == false)
+                    throw new Error();
+
             })
             .catch((error) => {
                 alert("Couldn't delete this post")
@@ -63,8 +65,14 @@ const usePost = (post: PostType) => {
 
         apiClient.patchPost(dto)
             .then((value) => {
-                dispatch(updatePost({old: post, new: value}))
-                switchEditMode();
+                console.log(value)
+                if (value.creationDate != null) {
+                    dispatch(updatePost({old: post, new: value}))
+                    switchEditMode();
+                }
+                else
+                    throw new Error();
+
             })
             .catch((error) => {
                 alert("Couldn't upadate post");

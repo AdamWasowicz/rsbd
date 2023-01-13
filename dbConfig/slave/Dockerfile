@@ -2,8 +2,8 @@ FROM postgres:15
 
 # Configuration
 RUN apt-get -y update
-RUN apt-get install -y netcat
-RUN apt-get install -y sudo
+# RUN apt-get install -y netcat
+# RUN apt-get install -y sudo
 COPY ./setup-slave.sh /docker-entrypoint-initdb.d/setup-slave.sh
 RUN chmod 0666 /docker-entrypoint-initdb.d/setup-slave.sh
 

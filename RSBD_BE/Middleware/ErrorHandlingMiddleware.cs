@@ -4,39 +4,42 @@ namespace RSBD_BE.Middleware
 {
     public class ErrorHandlingMiddleware: IMiddleware
     {
-        public Task InvokeAsync(HttpContext context, RequestDelegate next)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
-                next.Invoke(context);
+                await next.Invoke(context);
             }
             catch (InvalidRegionIdException exception)
             {
                 context.Response.StatusCode = 400;
-                context.Response.WriteAsync(exception.Message);
+                await context.Response.WriteAsync(exception.Message);
             }
             catch (ResourceNotFoundException exception)
             {
                 context.Response.StatusCode = 400;
-                context.Response.WriteAsync(exception.Message);
+                await context.Response.WriteAsync(exception.Message);
             }
             catch (ArgumentNullException exception)
             {
                 context.Response.StatusCode = 400;
-                context.Response.WriteAsync("Wrong data provided");
+                await context.Response.WriteAsync("Wrong data provided");
             }
             catch (InvalidDataException exception)
             {
                 context.Response.StatusCode = 400;
-                context.Response.WriteAsync(exception.Message);
+                await context.Response.WriteAsync(exception.Message);
+            }
+            catch (ServerNotAvailableException exeption)
+            {
+                context.Response.StatusCode = 500;
+                await context.Response.WriteAsync(exeption.Message);
             }
             catch (Exception exception)
             {
                 context.Response.StatusCode = 500;
-                context.Response.WriteAsync("Something went wrong with server");
+                await context.Response.WriteAsync("Something went wrong with server");
             }
-
-            return Task.CompletedTask;
         }
     }
 }
